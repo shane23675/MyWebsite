@@ -447,10 +447,35 @@
             <div id="structure05">
                 <!--學習日誌-->
                 <h2>學習日誌</h2>
-                <div class="singleDiary" id="L20190724">
-                    <p class="diaryTitle">2019.07.24</p>
+                <div class="singleDiary" id="L20190725">
+                    <p class="diaryTitle">2019.07.25</p>
                     <p class="diaryContent">
                         今天主要在學習Git的使用
+                        <br />該怎麼說呢...
+                        <br />這個東西的學習門檻頗高的
+                        <br />要輸入一堆指令碼
+                        <br />雖然好像也有很多現成的圖形化介面可以用
+                        <br />不過聽說從指令碼開始學才會比較理解它的底層運作邏輯
+                        <br />---
+                        <br />這裡紀錄今天學到的一些指令
+                        <br />1.cd 
+                        <br /><span class="listItem">可以在目錄間移動</span>
+                        <br />2.cd ~
+                        <br /><span class="listItem">移動至根目錄</span>
+                        <br />3.git init
+                        <br /><span class="listItem">初始化，在執行其他操作前得用此方法來將該目錄變成git可以管理的目錄</span>
+                        <br />4.git status
+                        <br /><span class="listItem">查看當前狀態，會顯示出需要添加、修改的檔案名稱</span>
+                        <br />5.git add 檔案名稱
+                        <br /><span class="listItem">將該檔案從工作區移至暫存區，使其變成可以commit的狀態，檔案名稱可以包含中文</span>
+                        <br />6.git rm --cached 檔案名稱
+                        <br /><span class="listItem">將檔案從暫存區移回工作區，如果檔案為資料夾則須使用git rm -r --cached 檔案名稱</span>
+                        <br />7.git commit -m "在這裡輸入備註" 檔案名稱
+                        <br /><span class="listItem">將檔案從暫存區移至本地庫(也就是真正進行更新)</span>
+                        <br />---
+                        <br />基本上流程就是
+                        <br />在目標資料夾git init -> git add 目標檔案 -> git commit -m "備註" 目標檔案名稱
+                        <br />就可以更新完成了
                     </p>
                 </div>
                 <div class="singleDiary" id="L20190724">

@@ -1136,6 +1136,10 @@ select {
 	width: 100%;
 	cursor: zoom-in;
 }
+.listItem {
+    display: inline-block;
+    margin-left: 20px;
+}
 /*圖片放大檢視區*/
 #zoomIn {
 	display: none;
