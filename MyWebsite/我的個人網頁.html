@@ -1,0 +1,944 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的個人網頁</title>
+    <link rel="Shortcut Icon" type="image/x-icon" href="images/M.png" />
+    <link rel="stylesheet" href="CSS/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="CSS/我的個人網頁.css">
+    <script src="JavaScript/jQuery.js" defer></script>
+    <script src="JavaScript/jquery.mCustomScrollbar.concat.min.js" defer></script>
+    <script src="JavaScript/我的個人網頁.js" defer></script>
+</head>
+    <body>
+        <div id="side-nav">
+            <!--左側導航欄-->
+            <ul>
+                <li>文章分類</li>
+                <li class="sideNavButtons"><p class="paintingEffect"><span class="filler2"></span>我接觸過的程式語言</p>我接觸過的程式語言</li>
+                <li id="TD" class="sideNavButtons"><p class="paintingEffect"><span class="filler2"></span>職訓筆記</p>職訓筆記</li>
+                <li class="sideNavButtons"><p class="paintingEffect"><span class="filler2"></span>留言板</p>留言板</li>
+                <li class="sideNavButtons"><p class="paintingEffect"><span class="filler2"></span>我的其他興趣</p>我的其他興趣</li>
+                <li id="LD" class="sideNavButtons"><p class="paintingEffect"><span class="filler2"></span>學習日誌</p>學習日誌</li>
+                <li id="WD" class="sideNavButtons"><p class="paintingEffect"><span class="filler2"></span>網站更新紀錄</p>網站更新紀錄</li>
+            </ul>
+            <div id="music" class="clearfix">
+                <!--音樂控制台-->
+                <audio src="music/起風了.mp3" autoplay></audio>
+                <p id="nowPlayingSongName">買辣椒也用券《起風了》</p>
+                <div id="playTool-0" class="clearfix">
+                    <ul id="musicProgressBar" title="調整歌曲進度">
+                        <li class="barBg"><div class="bar"></div><div class="dot"></div></li>
+                    </ul>
+                    <div class="timeInfo">01:23/04:56</div>
+                </div>
+                <ul id="playTool-1" class="clearfix">
+                    <li id="prevSongBtn" class="icomoon" title="上一首"></li>
+                    <li id="playBtn" class="icomoon" title="播放/暫停"></li>
+                    <li id="nextSongBtn" class="icomoon" title="下一首"></li>                    
+                </ul>
+                <ul id="playTool-2" class="clearfix">
+                    <li id="randomSongBtn" class="icomoon" title="隨機播放一條曲目"></li>
+                    <li id="showSongListBtn" class="icomoon" title="播放列表"></li>
+                </ul>
+                <ul id="volumeBar">
+                    <li class="icomoon muteBtn" title="靜音"></li>
+                    <li class="barBg"><div class="bar"></div><div class="dot"></div></li>
+                    <li class="icomoon louderBtn" title="音量最大"></li>
+                </ul>
+            </div>
+            <div id="songList">
+                <!--播放列表-->
+                <p>播放列表</p> <span class="icomoon" title="最小化播放列表"></span><!--最小化按鈕--><span class="icomoon" title="隱藏播放列表"></span><!--關閉按鈕-->
+                <ul class="mCustomScrollbar" data-mcs-theme="minimal-dark"></ul><!--用來放置歌曲列表的ul，裡面的li由JS生成-->
+            </div>
+        </div>
+        <form id="registerForm" action="">
+            <!--註冊表單-->
+            <p>註冊<span class="icomoon"></span></p>
+            <p><label>姓名：<br /><input type="text" placeholder="請輸入姓名" name="username" required></label></p>
+            <p><label>信箱：<br /><input type="email" placeholder="user_name@gmail.com" name="email"></label></p>
+            <p>性別：&ensp;&ensp;男<input type="radio" name="gender" checked="checked"> &ensp;&ensp;女<input type="radio" name="gender"></p>
+            <p>生日：<br /><input type="date"></p>
+            <p>
+                居住縣市：
+                <select>
+                    <option>基隆</option>
+                    <option>台北</option>
+                    <option>桃園</option>
+                    <option>新竹</option>
+                    <option>苗栗</option>
+                    <option>台中</option>
+                    <option>彰化</option>
+                    <option>南投</option>
+                    <option>雲林</option>
+                    <option>嘉義</option>
+                    <option>台南</option>
+                    <option>高雄</option>
+                    <option>屏東</option>
+                    <option>台東</option>
+                    <option>花蓮</option>
+                    <option>宜蘭</option>
+                </select>
+            </p>
+            <p>
+                最感興趣的程式語言：<br />
+                <input type="text" placeholder="輸入程式語言" list="lang">
+                <datalist id="lang">
+                    <option>Python</option>
+                    <option>Java</option>
+                    <option>C++</option>
+                    <option>C</option>
+                    <option>C#</option>
+                    <option>HTML5</option>
+                    <option>CSS3</option>
+                    <option>JavaScript</option>
+                    <option>PHP</option>
+                </datalist>
+            </p>
+            <p>個人網站：<br /><input type="url" name="user_website" placeholder="http://..."></p>
+            <p>上傳大頭貼：<br /><input id="uploadImg" type="file" multiple></p>
+            <button type="button" id="registerFormSubmit" class="notAvailable">註冊</button><button type="button" id="registerFormCancel">取消</button>
+        </form>
+        <form id="logInForm" action="">
+            <!--登入表單-->
+            <p>登入<span class="icomoon"></span></p>
+            <p><label>帳號：<span class="errorMsg">帳號由英數字組成，僅能以英文字母開頭，總長6-12位</span><br /><input type="text" placeholder="請輸入帳號" class="logInInfo" autocomplete></label></p>
+            <p><label>密碼：<span class="errorMsg">帳號由英數字組成，總長6-12位</span><br /><input type="password" placeholder="請輸入密碼" class="logInInfo" autocomplete></label></p>
+            <hr>
+            <p><input type="checkbox">記住帳號密碼</p>
+            <button type="button" id="logInFormSubmit">登入</button><button type="button" id="logInFormCancel">取消</button>
+        </form>
+        <div id="darkGlass">
+            <!--網頁蒙版-->
+            <span class="icomoon" title="關閉"></span><!--關閉按鈕-->
+        </div>
+        <ul id="lang-introduction-zoomIn">
+            <!--程式語言介紹 放大檢視-->
+        </ul>
+        <div id="zoomIn">
+            <!--圖片放大檢視區-->
+        </div>
+        <div id="progressBar"><div></div></div><!--閱讀進度條-->
+        <div class="topBtn icomoon" title="回到頂部">
+            <img src="images/arrow-top.png"/>
+        </div><!--回到頂端-->
+        <!-----------------------------------------------------此處以上放置的標籤都是固定定位------------------------------------------------------->
+        <div class="top-header">
+            <!--頂端logo-->
+            <div class="myWebsite"></div>
+            <div class="subtitle visible-lg visible-md"><img src="images/subtitle.png"/></div>
+            <div id="logoHintBox"><p class="logoHintBoxSharp"></p>點擊這裡可以回到封面</div>
+        </div>
+        <div class="filler"></div><!--nav的填充物-->
+        <nav>
+            <!--橫向導航欄-->
+            <span id="menuBtn" class="icomoon"></span>
+            <button id="logInButton" class="logSystem">登入</button>
+            <button value="註冊" id="registerButton" class="logSystem">註冊</button>
+            <button id="cleanModeBtn" class="hidden-xs">清晰模式</button>
+            <div id="cleanModeHint">
+                <!--清晰模式提示訊息-->
+                <div id="cleanModeHintBoxSharp"></div>
+                <div id="cleanModeHintBox">將內文的背景變為不透明</div>
+            </div>
+            <div id="userInformation">
+                <!--登入之後的使用者資訊-->
+                <div></div> <!--使用者照片-->
+                <p></p> <!--使用者帳號名-->
+                <ul id="userOption">
+                    <!--使用者選項-->
+                    <li class="notAvailable">編輯個人資料</li>
+                    <li class="notAvailable">檢視歷史留言</li>
+                    <li class="logOut">登出</li>
+                </ul>
+            </div>
+            <span id="searching-button" class="icomoon search hidden-xs"></span>
+            <input type="search" placeholder="請輸入文章ID" id="searching" class="search hidden-xs" autocomplete="off">
+            <div id="searchingHint">
+                <!--搜尋欄說明-->
+                <p class="header">搜尋使用說明</p>
+                <p class="content">
+                    請在此輸入欲搜尋的文章ID
+                    <br />搜尋「職訓筆記」輸入T
+                    <br />搜尋「學習日誌」輸入L
+                    <br />搜尋「工作日誌」輸入W
+                    <br />搜尋時不分大小寫，也可以輸入多個字母
+                    <br />再加上相關日期數字
+                    <br />例如：
+                    <br />搜尋「學習日誌」2019年7月9日的文章
+                    <br />輸入 L09 或 L0709 或 L20190709
+                    <br />或者直接輸入日期數字
+                    <br />即會顯示相關的搜尋結果
+                </p>
+            </div>
+        </nav>
+        <div id="main">
+            <div id="structure00">
+                <!--我的個人網頁-->
+                <h1 class="mid">我的個人網頁</h1>
+                <p>
+                    我在這裡紀錄我學習程式的歷程<br />
+                    並在這裡練習網頁前端製作的各項技術<br />
+                    更多內容請點擊左上角的菜單查閱
+                </p>
+                <div id="welcomePictures">
+                    <ul>
+                        <!--用來放置輪播圖-->
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <ul id="welcomePictureDots">
+                        <!--用來放置小點點-->
+                        <!--小點點由JS腳本生成-->
+                    </ul>
+                </div>
+                <p class="welcomePictureInfo">前端實作經典案例輪播圖</p>
+                <div id="sunAndEarth"></div>
+                <p class="welcomePictureInfo">自製動畫效果</p>
+            </div>
+            <div id="structure01">
+                <!--我接觸過的程式語言-->
+                <h2>我接觸過的程式語言</h2>
+                <div class="clearfix">
+                    <ul id="lang-introduction">
+                        <li>
+                            <p>Python</p>
+                            <img src="images/python.jpg">
+                            <p>Python是一種廣泛使用的直譯式、進階編程、通用型程式語言，由吉多·范羅蘇姆創造，第一版釋出於1991年。Python的設計哲學強調程式碼的可讀性和簡潔的語法（尤其是使用空格縮排劃分程式碼塊，而非使用大括號或者關鍵詞）。相比於C++或Java，Python讓開發者能夠用更少的代碼表達想法。不管是小型還是大型程式，該語言都試圖讓程式的結構清晰明了。</p>
+                        </li>
+                        <li>
+                            <p>HTML5</p>
+                            <img src="images/HTML5.jpg">
+                            <p>HTML5是HTML最新的修訂版本，由全球資訊網協會（W3C）於2014年10月完成標準制定。目標是取代1999年所制定的HTML 4.01和XHTML 1.0標準，以期能在網際網路應用迅速發展的時候，使網路標準達到符合當代的網路需求。它希望能夠減少網頁瀏覽器對於需要外掛程式的豐富性網路應用服務，例如：Adobe Flash、Microsoft Silverlight與Oracle JavaFX的需求，並且提供更多能有效加強網路應用的標準集。</p>
+                        </li>
+                        <li>
+                            <p>CSS3</p>
+                            <img src="images/CSS3.png">
+                            <p>層疊樣式表（英語：Cascading Style Sheets，縮寫：CSS；又稱串樣式列表、級聯樣式表、串接樣式表、階層式樣式表）是一種用來為結構化文件（如HTML文件或XML應用）添加樣式（字型、間距和顏色等）的電腦語言，由W3C定義和維護。目前最新版本是CSS2.1，為W3C的推薦標準。CSS3現在已被大部分現代瀏覽器支援，而下一版的CSS4仍在開發中。</p>
+                        </li>
+                        <li>
+                            <p>JavaScript</p>
+                            <img src="images/Javascript.jpg">
+                            <p>JavaScript（通常縮寫為JS）是一種進階的、直譯的程式語言。JavaScript是一門基於原型、函式先行的語言，是一門多範式的語言，它支援物件導向編程，指令式程式設計，以及函式語言程式設計。它提供語法來操控文字、陣列、日期以及正規表示式等，不支援I/O，比如網路、儲存和圖形等，但這些都可以由它的宿主環境提供支援。它被世界上的絕大多數網站所使用，也被世界主流瀏覽器（Chrome、IE、Firefox、Safari、Opera）支援。</p>
+                        </li>
+                        <li>
+                            <p>C++</p>
+                            <img src="images/C++.png">
+                            <p>C++是一種使用廣泛的電腦程式設計語言。它是一種通用程式設計語言，支援多重程式設計模式，例如程序化程式設計、資料抽象化、物件導向程式設計、泛型程式設計和設計模式等。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="structure02">
+                <!--職訓筆記-->
+                <h2>職訓筆記</h2>
+                <div class="singleDiary" id="T20190723">
+                    <p class="diaryTitle">2019.07.23</p>
+                    <p class="diaryContent">
+                        本日課程：資料庫設計與開發實務/網站資訊系統程式設計
+                        <br />資料庫：
+                        <br />
+                        <br />索引通常是
+                        <br />1)常常被當成查詢的欄位
+                        <br />2)重複率通常不高：否則難以對資料進行篩選
+                        <br />3)而且字數不長：以免在查詢時對系統造成太大負擔
+                        <br />
+                        <br />實作1：用查詢精靈製作「部門代號」與「薪資」的關係表
+                        <br />實作2：用查詢設計製作「部門代號」與「薪資」的關係表
+                        <br />實作3：在查詢設計中使用「準則」來篩選資料
+                        <br />實作4：用IFF判斷式在姓名後加入先生或小姐 IFF(條件判斷式, 成立執行, 不成立執行)類似JS的"?"
+                        <br />實作5：進一步計算出稅額和淨所得
+                        <br />實作6：使用Like來進行模糊搜尋，搜尋條件中加入"?"表示任意一個字符，"*"表示任意數量的任意字符(0個也可以)
+                        <br />實作7：使用比較運算符來篩選，可以用<=及>=或使用between...and...
+                    </p>
+                </div>
+                <div class="singleDiary" id="T20190718">
+                    <p class="diaryTitle">2019.07.18</p>
+                    <p class="diaryContent">
+                        本日課程：資料庫設計與開發實務/網站資訊系統程式設計
+                        <br />資料庫中比較重要的概念是正規化
+                        <br />正規化概念有待補充
+                        <br />
+                        <br />網站設計部分今天有講到pre標籤
+                        <br />是個可以用來放程式碼的標籤，長知識了(之前根本沒在用)
+                        <br />其他就是塊級元素和行內元素的概念
+                        <br />不過老師始終沒有提到這兩個專有名詞
+                        <br />難道是大陸才有的說法??
+                    </p>
+                </div>
+                <div class="singleDiary" id="T20190717">
+                    <p class="diaryTitle">2019.07.17</p>
+                    <p class="diaryContent">
+                        本日課程：計算機概論
+                        <br />前三節課幾乎都在教如何選購、組裝電腦硬體
+                        <br />我自己是覺得沒什麼重要的啦
+                        <br />等到真的有需要時再上網查資料就好
+                        <br />現在教我，等我要組電腦時大概也忘光了
+                        <br />節奏超級慢，真的是有夠無聊
+                        <br />
+                        <br />最後一節課才在講2、8、10、16進位的換算
+                        <br />但是老師好像搞不太懂重點
+                        <br />花很多時間在簡單的例子上
+                        <br />真正重要的原理卻幾乎沒解釋
+                        <br />讓我感覺老師真的滿不會教的...
+                        <br />而這方面的知識我也早就已經會了
+                        <br />所以也沒什麼好紀錄的了
+                    </p>
+                </div>
+                <div class="singleDiary" id="T20190716">
+                    <p class="diaryTitle">2019.07.16</p>
+                    <p class="diaryContent">
+                        本日課程：資料庫設計與開發實務/網站資訊系統程式設計
+                        <br />關聯式資料庫
+                        <br />資料庫設計出來時，常無法確認是否設計正確
+                        <br />困難點在於如何讓原始資料變成有意義的數據
+                        <br /> 資料庫會先進行塑模
+                        <br />也就是先確定模子是對的，再開始生產
+                        <br />塑模後產出一個圖
+                        <br />在將資料丟入資料庫前，必須先對資料進行正規化
+                        <br />
+                        <br />塑模是完全沒有資料的情況下無中生有
+                        <br />正規化則是在有資料的情況下去設計合適的儲存方式
+                        <br />
+                        <br />業界常用資料庫：
+                        <br />SQL Server, MySQL, Sybase, Informix, Oracle
+                        <br />通通都是關聯式資料庫
+                        <br />關聯式資料庫的三個特性：效能差、效能差、效能差!(相較於其他類型資料庫)
+                        <br />必須使用對應的程式語言來操作資料庫
+                        <br />
+                        <br />主索引
+                        <br />在資料表中，通常會選定一個欄位作為主索引
+                        <br />通過這個欄位中的值可以判斷是哪一筆資料(等同於ID的概念)
+                        <br />而可以作為主索引的欄位具有以下兩種特性：
+                        <br />1. 所存資料均不重複
+                        <br />2. 所存資料不含空資料
+                        <br />像是學號就是很好的主索引(大家都有且都不重複)
+                        <br />生日就不能作為主索引(可能重複)
+                        <br />
+                        <br />資料庫相關資源下載地址：ftp://10.10.3.102
+                        <br />
+                        <br />下午開始教前端網頁設計
+                        <br />基本上我都已經學過了
+                        <br />讓我滿訝異的是老師竟然在第一節課就同時提到HTML、CSS和JS
+                        <br />還讓大家去抄他的JS程式碼
+                        <br />我個人認為讓大家做這種「不知道自己在幹嘛」的事情滿不妥的
+                        <br />容易讓初學者在一開始就一團混亂
+                        <br />希望他只是為了讓大家知道網頁是怎麼運作的才這樣舉例
+                        <br />還是得循序漸進的教才好懂阿!!
+                        <br />別再把主題一鍋粥的丟給大家了
+                        <br />如果他之後教form時就教後端，那我真的會吐血...
+                    </p>
+                </div>
+                <div class="singleDiary" id="T20190715">
+                    <p class="diaryTitle">2019.07.15</p>
+                    <p class="diaryContent">
+                        本日課程：網路資訊系統程式設計
+                        <br />今天也是幾乎都在閒聊
+                        <br />老師大概提點一下課程結構
+                        <br />也說了不少台灣資訊相關產業的發展史
+                        <br />也是沒什麼特別重要的
+                        <br />明天開始教HTML的樣子
+                        <br />
+                        <br />備註：我當班長啦!!
+                    </p>
+                </div>
+                <div class="singleDiary" id="T20190712">
+                    <p class="diaryTitle">2019.07.12</p>
+                    <p class="diaryContent">
+                        本日課程：計算機概論
+                        <br />大概就是說了些電腦的發展歷史
+                        <br />沒什麼特別重要的
+                    </p>
+                </div>
+            </div>
+            <div id="structure03">
+                <!--留言板-->
+                <h2 id="message">留言板</h2>
+                <div id="message-board" class="clearfix">
+                    <!--新增留言區域-->
+                    <div class="userPic"></div>
+                    <div class="message">
+                        <textarea placeholder="新增公開留言..."></textarea>
+                        <button class="submitMsg" disabled>留言</button>
+                        <button class="cancelMsg">取消</button>
+                    </div>
+                </div>
+                <div id="billboard" class="clearfix">
+                    <!--歷史留言顯示區域-->
+                    <div class="aSingleComment clearfix">
+                        <!--範例留言-->
+                        <div class="userPic"></div>
+                        <div class="comment">
+                            <span class="userName">黃紹恩</span><span class="userName commentTime">今天</span>
+                            <p class="commentContent">有夠麻煩der留言板<br />幫我看看有沒有bugㄅ</p>
+                            <p class="showMoreContent">顯示全部內容</p>
+                            <div class="toolBar clearfix" likeFlag="false" dislikeFlag="false">
+                                <button class="likeBtn"></button>
+                                <span class="likeCounts">0</span>
+                                <button class="dislikeBtn"></button>
+                                <span class="dislikeCounts">0</span>
+                                <button class="replyBtn">回覆</button>
+                            </div>
+                            <div class="replyBox clearfix">
+                                <div class="userPicSmall "></div>
+                                <div class="reply">
+                                    <textarea placeholder="新增公開回覆..."></textarea>
+                                    <button class="submitReply">回覆</button>
+                                    <button class="cancelReply">取消</button>
+                                </div>
+                            </div>
+                            <div class="replyDiv">
+                                <!--留言中的回覆內容-->
+                                <p class="showMoreReply">查看回覆</p>
+                                <!--回覆範例1-->
+                                <div class="aSingleReply clearfix">
+                                    <div class="userPicSmall"></div>
+                                    <div class="reply">
+                                        <span class="userName">黃紹恩</span><span class="userName commentTime">今天</span>
+                                        <p class="commentContent">覺得這個留言板很眼熟?<br />因為這是仿製youtube的哈哈<br />大致重現，有些細節我不會做QQ</p>
+                                        <p class="showMoreContent">顯示更多內容</p>
+                                        <div class="toolBar clearfix" likeFlag="false" dislikeFlag="false">
+                                            <button class="likeBtn"></button>
+                                            <span class="likeCounts">0</span>
+                                            <button class="dislikeBtn"></button>
+                                            <span class="dislikeCounts">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--回覆範例2-->
+                                <div class="aSingleReply clearfix">
+                                    <div class="userPicSmall"></div>
+                                    <div class="reply">
+                                        <span class="userName">黃紹恩</span><span class="userName commentTime">今天</span>
+                                        <p class="commentContent">不過因為我還沒學資料庫<br />所以留言只要重新整理就不見了<br />等我會架設伺服器再說ㄅ</p>
+                                        <p class="showMoreContent">顯示更多內容</p>
+                                        <div class="toolBar clearfix" likeFlag="false" dislikeFlag="false">
+                                            <button class="likeBtn"></button>
+                                            <span class="likeCounts">0</span>
+                                            <button class="dislikeBtn"></button>
+                                            <span class="dislikeCounts">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="structure04">
+                <!--我的其他興趣-->
+                <h2 id="hobby">我的其他興趣</h2>
+                <div id="badminton-video">
+                    <p class="italic">
+                        我平常的興趣是打羽球<br />
+                        如果想要和我切磋球技的話可以在上方留下聯絡資訊哦～<br /><br />
+                        這裡和大家分享一部精采的羽球影片：
+                    </p><br />
+                    <iframe width="600px" height="400px" src="https://www.youtube.com/embed/7S8eyIk2_PQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div id="structure05">
+                <!--學習日誌-->
+                <h2>學習日誌</h2>
+                <div class="singleDiary" id="L20190724">
+                    <p class="diaryTitle">2019.07.24</p>
+                    <p class="diaryContent">
+                        最近都在學習自適應的原理...
+                        <br />想弄懂原理之後自己寫一個類似Bootstrap的框架來套用在這個網站上
+                        <br />今天赫然發現在w3school上有個「<a href="https://www.w3schools.com/css/css_rwd_intro.asp" style="color: blue">CSS響應式教學</a>」專欄
+                        <br />裡面把原理講得很清楚，豁然開朗
+                        <br />我也將相關的代碼寫好了
+                        <br />不過一下子不曉得可以把這框架套在哪裡
+                        <br />所以我乾脆就在下面這裡測試吧XD
+                    </p>
+                        <div class="row diaryContent" >
+                            <div class="col-lg-7 col-md-6 col-sm-5 col-xs-4" style="background: #65e765">col-lg-7<br />col-md-6<br />col-sm-5<br />col-xs-4</div>
+                            <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-4" style="background: #90ee90">col-lg-4<br />col-md-4<br />col-sm-4<br />col-xs-4</div>
+                            <div class=" col-lg-1 col-md-2 col-sm-3 col-xs-4" style="background: #bdf5bd; white-space: nowrap">col-lg-1<br />col-md-2<br />col-sm-3<br />col-xs-4</div>
+                        </div>
+                    <p class="diaryContent">
+                        隨著螢幕寬度增大，左邊的盒子占比會變大，右邊的盒子占比會變小
+                        <br />看起來沒什麼問題，應該算是成功了
+                        <br />以後應該會將這個技術運用在網站新創建的部分
+                    </p>
+                </div>
+                <h2>學習日誌</h2>
+                <div class="singleDiary" id="L20190722">
+                    <p class="diaryTitle">2019.07.22</p>
+                    <p class="diaryContent">
+                        前兩天都在改音樂播放器的樣式
+                        <br />弄進度條同步弄了半天
+                        <br />所以都沒學新東西
+                        <br />---
+                        <br />今天繼續學Bootstrap
+                        <br />我其實到現在都還沒下載來用哈哈
+                        <br />主要是覺得很難直接套用到這個網站上
+                        <br />它應該是快速開發一個新網頁比較適用
+                        <br />已經成形的網頁應該不好修改
+                        <br />所以我主要是想學它的實現原理
+                        <br />好讓我學到如何將其套用到這個網站上
+                        <br />
+                        <br />而今天我在看教學影片時發現個神奇的東西
+                        <br />就是CSS3的選擇器
+                        <br />有個[property^="string"]
+                        <br />還有[property$="string"]、[property*="string"]
+                        <br />跟正則表達式類似
+                        <br />用來選取有該屬性
+                        <br />且開頭/結尾/任意位置 為string的DOM元素
+                        <br />所以可以配合@media
+                        <br />對所有class="col-*" 的DOM元素進行設置
+                        <br />來實現某些響應式的功能
+                        <br />真的頗神奇
+                        <br />應該讓我對Bootstrap的了解又更深了一點
+                    </p>
+                </div>
+                <div class="singleDiary" id="L20190718">
+                    <p class="diaryTitle">2019.07.18</p>
+                    <p class="diaryContent">
+                        最近學習的重點為網頁自適應
+                        <br />才突然發現CSS中竟然有@media這麼神奇的東西
+                        <br />可以用它來調整網頁在不同的寬度下的CSS樣式
+                        <br />或是透過JS檢測window寬度來進行對應的調整
+                        <br />
+                        <br />其實用Bootstrap來佈局應該是最快最沒問題的作法
+                        <br />但每次在學習新的框架時我總有種排斥感(老想著自幹)
+                        <br />所以目前本網站的自適應我都還是靠自幹哈哈
+                        <br />94不想用Bootstrap
+                        <br />不過這個框架到現在都還滿流行的樣子
+                        <br />所以還是要學啦
+                        <br />不過相較於知道怎麼用Bootstrap
+                        <br />知道它的實現原理我認為是更重要的
+                        <br />我也將以此為重點來學習
+                    </p>
+                </div>
+                <div class="singleDiary" id="L20190712">
+                    <p class="diaryTitle">2019.07.12</p>
+                    <p class="diaryContent">
+                        今天有比較多概念：
+                        <br />進程與線程、瀏覽器內核、線程與定時器、事件循環模型、JS多線程方法
+                        <br />
+                        <br />1. 進程與線程
+                        <br />一台電腦會同時進行多個進程，而每個進程會進行一個以上的線程
+                        <br />Ex: Chrome瀏覽器的每個分頁都是不同的進程
+                        <br />而若有兩個以上的線程，則稱為多線程
+                        <br />一般來說，JS文件的加載都是單線程的
+                        <br />因為如果使用多線程，可能導致多個線程在調用同一個DOM元素時會產生衝突
+                        <br />Ex: a線程要刪除某p標籤，b線程要修改該p標籤，結果a線程執行後b線程找不到該p標籤而報錯
+                        <br />如果要解決這個問題，則會大大提升編寫代碼時的難度，得不償失
+                        <br />所以基本上JS都是單線程執行(就是從上到下一行一行執行代碼)
+                        <br />但有其特別的執行順序
+                        <br />JS會先執行「初始化代碼」，再執行「回調代碼」(基本上就是回調函數)
+                        <br />也就是先執行完一般的代碼
+                        <br />再執行監聽像是setTimeout、onclick裡面的回調函數
+                        <br />這樣會引發一些問題，將在下方提及
+                        <br />
+                        <br />2. 瀏覽器內核
+                        <br />就是瀏覽器內部的核心技術，如下表
+                        <br />Chrome、Safari: webkit
+                        <br />firefox: Gecko
+                        <br />IE: Trident
+                        <br />360、搜狗(都是大陸的非主流瀏覽器)：webkit 和 Trident 交替使用
+                        <br />就是一些大概知道就好的知識
+                        <br />
+                        <br />3. 線程與定時器
+                        <br />setTimeout、setInterval這樣的定時器函數並不是完全準確的
+                        <br />而是有5毫秒以內的可忽略誤差
+                        <br />不過若是在一般代碼中有一些較耗時的代碼(遞迴、嵌套循環等)
+                        <br />則會造成定時器的大量誤差
+                        <br />這是因為JS會先執行「初始化代碼」，再執行「回調代碼」
+                        <br />所以發生以下狀況：
+                        <br />初始化時設定定時器 --> 初始化時執行耗時代碼(產生延遲時間t) --> 執行回調代碼(定時器真的開始計時)
+                        <br />因此產生時間誤差t
+                        <br />也就是說，耗時代碼阻塞了JS的主線程，造成了誤差
+                        <br />解決方案：讓耗時代碼在JS支線程中執行(後面提及)
+                        <br />
+                        <br />4. 事件循環模型
+                        <br />不囉嗦，先上圖
+                        <br /><img src="images/eventCycle.png">
+                        <br />總之就是像這樣
+                        <br />JS執行各行代碼 --> 其中有許多網頁API --> 將這些回調函數丟入對列中逐項執行
+                        <br />
+                        <br />5. JS多線程(worker)
+                        <br />剛剛提到多線程會產生操作DOM時的衝突
+                        <br />所以只要使用多線程時禁止操作DOM就可以避免這個問題
+                        <br />可以讓支線程執行一些耗時的計算性代碼
+                        <br />就可以解決在計算過程中造成的瀏覽器卡頓以及計時器失準問題
+                        <br />在HTML5中新增了worker對象
+                        <br />利用它可以實現多線程處理
+                        <br />下例是有使用多線程的差異
+                        <br />輸入數值可以計算對應的費波納契第n位數字
+                        <br />由於費波納契是由遞迴計算，因此很耗時
+                        <br />若輸入的數字過大(>50)
+                        <br />會讓瀏覽器卡頓一段時間
+                        <br />多線程則不受影響
+                        <br /><input type="number" placeholder="沒有多線程" class="noWorker"> <button class="noWorker">計算</button>
+                        <br />由於Chrome不開放本地文件使用多線程，目前無法使用(我TM白忙一場)
+                        <br /><input type="number" placeholder="使用多線程" class="withWorker"> <button class="withWorker" disabled>計算</button>
+                        <br />終於把JS高級學完了
+                        <br />相信以後在編寫代碼時可以更加整齊及效率
+                    </p>
+                </div>
+                <div class="singleDiary" id="L20190711">
+                    <p class="diaryTitle">2019.07.11</p>
+                    <p class="diaryContent">
+                        類的繼承
+                        <br />在JS中，是通過構造函數以及new方法來創建一個類
+                        <br />但由於對象、類、函數這些東西糾結的交纏在一起
+                        <br />不像Python直接以def和class區分開
+                        <br />所以要達成某些效果也是特別複雜
+                        <br />像是繼承這個效果
+                        <br />在Python中只要在創建類時給予繼承參數就可以實現
+                        <br />在JS中則要有清楚的原型概念才寫得出代碼(雖然也不複雜)
+                        <br />相關代碼如下圖
+                        <br /><img src="images/inherit1.jpg">
+                        <br />最關鍵的步驟就是 Son.prototype = new Father();
+                        <br />此步驟的效果如下圖
+                        <br /><img src="images/inherit2.png">
+                        <br />藉由此步驟
+                        <br />obj在調用setName方法時
+                        <br />就可以沿著__proto__原型鍊找到setName方法，如下圖
+                        <br /><img src="images/inherit3.png">
+                        <br />除此之外
+                        <br />還要使用Father.call(this, name, age)將Fahter設定屬性的代碼拿來給Son使用
+                        <br />才可以實現完整的繼承效果
+                        <br />
+                        <br />----------切換主題-----------
+                        <br />
+                        <br />還有一個重要概念：JS的變量提升
+                        <br />所謂變量提升是指用var定義的變量會在最一開始先統一定義為undefined
+                        <br />等到該行代碼執行時才賦值
+                        <br />所以如果在聲明變量的代碼前面調用該變量
+                        <br />不會報錯，而是返回undefined
+                        <br />而function定義的函數也有這種提升效果
+                        <br />而且會直接賦值
+                        <br />也就是說只要你在整個JS文件中有定義該函數
+                        <br />則在任何位置都能調用(不過當然要在作用域內)
+                        <br />而var的提升是先於function的提升的
+                        <br />這點要特別注意
+                    </p>
+                </div>
+                <div class="singleDiary" id="L20190710">
+                    <p class="diaryTitle">2019.07.10</p>
+                    <p class="diaryContent">
+                        今天主要在學習「閉包」的概念
+                        <br />據說它和「原型」被稱為JS兩大神獸
+                        <br />果然確實挺有難度
+                        <br />這裡我將我將重點進行歸納總結：
+                        <br />---
+                        <br />1. 閉包的定義：
+                        <br />在一個函數中還有一個子函數
+                        <br />其中這個子函數有引用父函數內聲明的變量
+                        <br />則這個子函數就是一個閉包，如下圖
+                        <br /><img src="images/closureEx1.jpg">
+                        <br />---
+                        <br />2. 閉包的功能：
+                        <br />1)延長局部變量的生命週期
+                        <br />2)讓使用者可以在外部操作局部變量，並且限制其操作方式
+                        <br />像是上圖的例子
+                        <br />本來局部變量a應該在father執行完後就銷毀
+                        <br />卻因為仍有son對其引用而延續了它的壽命
+                        <br />並且只能透過調用f的方式來操作它
+                        <br />可以用這種方式來封裝方法、創建JS模塊
+                        <br />---
+                        <br />3. 如何用閉包來創建JS模塊？
+                        <br />如下例
+                        <br /><img src="images/closureEx2.jpg">
+                        <br />如此一來外部無法直接訪問局部變量a
+                        <br />只能透過我們自定義的函數來進行操作
+                        <br />---
+                        <br />4. 閉包的缺點
+                        <br />閉包延長了局部變量的生命週期
+                        <br />讓程序員可以對其進行操作
+                        <br />但同時也讓該局部變量繼續占用內存
+                        <br />若內存被耗盡則系統崩潰顯示錯誤
+                        <br />因此在不需要使用閉包後
+                        <br />應將引用該閉包的相關變量賦值為null
+                        <br />才能釋放內存空間
+                        <br />
+                        <br />----------切換主題-----------
+                        <br />
+                        <br />對象創建模式：
+                        <br />創建對象有很多方法
+                        <br />基本上都已經學過了
+                        <br />主要的重點在於
+                        <br />創建一個類時，要將類的方法添加到類的原型之中
+                        <br />不要讓每個類的實例都有一個獨立的方法函數
+                        <br />以免浪費內存空間
+                    </p>
+                </div>
+                <div class="singleDiary" id="L20190709">
+                    <p class="diaryTitle">2019.07.09</p>
+                    <p class="diaryContent">
+                        今天還是著重於學習於原型鍊的部分
+                        <br />有幾個聽起來很繞的概念：
+                        <br />函數都是一種對象，特殊的對象，也就是說函數同時有「函數」及「對象」兩種特性
+                        <br />所有函數都是Function函數對象的實例，包括Functionc函數對象本身
+                        <br />所有對象的構造函數Object也是一個函數，所以它也是Function的一個實例
+                        <br />涵蓋範圍如下圖：
+                        <br /><img src="images/prototypeInstruction2.png">
+                        <br />有點複雜，不過慢慢琢磨就能理明白
+                        <br />後來又多學兩個比較簡單的概念：執行上下文及函數作用域
+                        <br />函數作用域是在代碼寫好時就確定的
+                        <br />簡單來說就是函數自己創建的一個獨立區塊
+                        <br />裡面的變量都是局部變量
+                        <br />不能被外部所調用
+                        <br />執行上下文則是調用一次函數就會創建一個
+                    </p>
+                </div>
+                <div class="singleDiary" id="L20190708">
+                    <p class="diaryTitle">2019.07.08</p>
+                    <p class="diaryContent">
+                        今天新學習到的知識點：
+                        <br />1. 傳遞變量的值時(例如傳遞到函數中)，傳遞的不是變量本身，而是變量中的值(可能是基本數據類型，也可能是對象的地址)
+                        <br />2. 函數中需要傳入的參數叫形參，真的傳遞進去的值叫實參
+                        <br />3. 將參數傳入函數中，是將變量的值傳入形參中，所以函數中對形參的操作不會影響實參的值，除非傳入的是對象的地址，再藉由形參對該地址的對象內容進行修改，才會產生實質影響
+                        <br />4. 回調函數定義：
+                        <br />&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;1) 你自定義的
+                        <br />&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;2) 你沒有調用
+                        <br />&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;3) 它最終被調用了
+                        <br />&ensp;&ensp;&ensp;&ensp;所以原來之前在DOM對象上綁定的事件都是回調函數，一直看到這個詞，但現在才真正知道它的意思
+                        <br />
+                        <br />除此之外還發現
+                        <br />在JS中，如果不使用工廠函數來創建對象，而是直接使用{}的話
+                        <br />語法其實有點像Python的字典
+                        <br />都是{key: value, key: value}的形式
+                        <br />在調用上也差不多，可以使用obj[key]
+                        <br />差異就在於JS可以用obj.key調用(如果key不包含特殊符號、數字開頭等特殊命名)
+                        <br />
+                        <br />5. 每個函數都有一個prototype屬性，這個prototype屬性中有個默認空對象(即顯式原型屬性)，此對象又包含一個constructor屬性，此屬性又指向該函數
+                        <br />6. 每個實例對象都有一個__proto__屬性，這個__proto__屬性指向建構該實例的構造函數的prototype(即隱式原型屬性)
+                        <br />5&6語言描述很抽象，下面圖片解釋較清楚：
+                        <br /><img src="images/prototypeInstruction.png">
+                    </p>
+                </div>
+                <div class="singleDiary" id="L20190707">
+                    <p class="diaryTitle">2019.07.07</p>
+                    <p class="diaryContent">
+                        今天開始看JS高級
+                        <br />覺得收穫滿多的
+                        <br />畢竟之前學的時候很多基本概念沒有搞得很懂
+                        <br />今天主要學到一個之前在學Python數據結構時就學過但有點忘記的概念
+                        <br />就是數據的儲存方式
+                        <br />一般的數據類型都是直接儲存在內存的變量標籤中
+                        <br />但若是對象(包括函數和數組)
+                        <br />則是將對象的地址保存到變量標籤中
+                        <br />這也是為何如果將一個對象保存到兩個標籤中時
+                        <br />若通過其中一個標籤將該對象的數據做修改
+                        <br />則另外一個標籤對應的數據也會修改(因為都是指向同一個對象)
+                        <br />而一般數據類型則不會有此特性
+                        <br />真是豁然開朗
+                        <br />
+                        <br />--------------------
+                        <br />
+                        <br />最近還有一個頓悟
+                        <br />本來不是很理解究竟要在何時使用對象這個東西
+                        <br />畢竟不使用對象也可以完成我需要的程序阿
+                        <br />後來不知在哪聽到
+                        <br />「對象就是用來儲存數據(及方法)的」
+                        <br />乍聽像是廢話
+                        <br />但卻讓我茅塞頓開
+                        <br />突然理解為何那麼多框架(jQuery、Vue、React等)
+                        <br />都要將程序封裝到對象之中再調用
+                        <br />因為對象本來就是用來包裝這些數據和函數的阿!!
+                        <br />包裝起來調用方便
+                        <br />也可以避免創建出全局變量和用戶的自定義變量衝突
+                        <br />真是太天才了!
+                        <br />今後我也要多練習將程序包裝到對象之中
+                        <br />這大概是朝向資深工程師的重要一步www
+                        <br />真是獲益良多
+                    </p>
+                </div>
+                <div class="singleDiary" id="L20190706">
+                    <p class="diaryTitle">2019.07.06</p>
+                    <p class="diaryContent">
+                        這是第一篇學習日誌，在此之前我沒有特別紀錄這段學習的日子<br />
+                        從接觸Python對編程感到興趣<br />
+                        到後來開始接觸網頁前端的相關製作<br />
+                        本來覺得有HTML、CSS、Javascript這麼多東西要學<br />
+                        一轉眼到現在過了兩個月左右，竟也學得差不多了<br />
+                        要做出一個網站應該有的基本結構及效果也沒有太大問題了<br />
+                        所以最近開始接觸後端的部分<br />
+                        主要也是學完了jQuery<br />
+                        得開始學Ajax，就勢必得會基本的PHP、架設伺服器等<br />
+                        不過為了架設伺服器最近很頭痛<br />
+                        因為有的教學是使用集成資源<br />
+                        也就是包含PHP、mySQL、Apache等等後端必備的軟體<br />
+                        有的教學則是單獨下載各項軟體再設置<br />
+                        結果集成資源的雖然很快就能架設好伺服器<br />
+                        但我卻不知該如何將PHP文件放置到正確的位置來開啟<br />
+                        單獨下載各項軟體感覺又很麻煩<br />
+                        真的是讓我很頭痛<br />
+                        反正7/12就要去高雄上課了<br />
+                        我想到時候老師都會教我們該如何架設吧<br />
+                        現在我就先不想管這些了<br />
+                        想要先把Javascript的相關語法弄熟悉<br />
+                        畢竟雖然現在已經大部分的功能都能夠實現了<br />
+                        但很多將方法封裝成函數、對象的技術我卻不大理解<br />
+                        主要原因可能還是因為我對一些數組、對象的操作方法不夠熟悉導致<br />
+                        所以這段時間就先來補強這部分吧<br />
+                        聽過有句話說得好<br />
+                        「不要想要先學哪種流行的語言，<br />
+                        因為以後都得學<br />
+                        應該先專精一門語言<br />
+                        對以後的發展或學習其他語言的理解都是比較好的」<br />
+                    </p>
+                </div>
+            </div>
+            <div id="structure06">
+                <!--網站更新紀錄-->
+                <h2>網站更新紀錄</h2>
+                <div class="singleDiary" id="W20190723">
+                    <p class="diaryTitle">2019.07.23</p>
+                    <p class="diaryContent">
+                        留言板功能優化：留言輸入區高度將隨需要而變化
+                        <br />留言板自適應
+                        <br />搜尋功能自適應(目前僅是先做消失處理)
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190721">
+                    <p class="diaryTitle">2019.07.21</p>
+                    <p class="diaryContent">
+                        將音樂播放器樣式優化及完善其功能
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190719">
+                    <p class="diaryTitle">2019.07.19</p>
+                    <p class="diaryContent">
+                        優化搜尋引擎：搜尋時只要包含對應字母就會顯示對應結果(不一定要在開頭輸入)、可以輸入簡短文字來快速定位文章(像是搜尋W3會找到所有工作日誌中日期包含3的文章)
+                        <br />新增網站小圖標
+                        <br />修改logo和清晰模式的提示框效果(離開懸浮就消失)
+                        <br />修改音樂播放器樣式
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190718">
+                    <p class="diaryTitle">2019.07.18</p>
+                    <p class="diaryContent">
+                        頁尾自適應：改用flex布局
+                        <br />左側導航欄自適應：在高度不足時會顯示滾動條
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190717">
+                    <p class="diaryTitle">2019.07.17</p>
+                    <p class="diaryContent">
+                        頂部logo自適應：在寬度低於1000px的裝置上subtitle會消失
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190716">
+                    <p class="diaryTitle">2019.07.16</p>
+                    <p class="diaryContent">
+                        新增回到頂部按鈕
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190715">
+                    <p class="diaryTitle">2019.07.15</p>
+                    <p class="diaryContent">
+                        將搜尋欄進一步完善，搜尋結果會顯示文章類型、搜尋時不分大小寫
+                        <br />搜尋欄Bug修正：在點擊最下面的搜尋結果時會觸發不了點擊事件，原因是當focusout被觸發時收起提示框導致沒有真的點擊到搜尋結果
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190714">
+                    <p class="diaryTitle">2019.07.14</p>
+                    <p class="diaryContent">
+                        將搜尋欄進一步完善，可以預覽相關結果、點擊跳轉
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190713">
+                    <p class="diaryTitle">2019.07.13</p>
+                    <p class="diaryContent">
+                        將「我使用過的網站及論壇」刪除，移至頁尾「教學網站」
+                        新增「職訓筆記」板塊
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190712">
+                    <p class="diaryTitle">2019.07.12</p>
+                    <p class="diaryContent">
+                        新增MyWebsite書寫動畫效果
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190711">
+                    <p class="diaryTitle">2019.07.11</p>
+                    <p class="diaryContent">
+                        完善「學習日誌」內的圖片放大功能，使圖片放大後不會超出外框
+                        <br />在封面添加自製動畫「Sun and Earth」(使用精靈圖技術)
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190710">
+                    <p class="diaryTitle">2019.07.10</p>
+                    <p class="diaryContent">
+                        完善搜尋欄功能
+                        <br />添加搜尋欄說明
+                        <br />「學習日誌」中的圖片放大顯示功能
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190707">
+                    <p class="diaryTitle">2019.07.07</p>
+                    <p class="diaryContent">
+                        新增Bug回報
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190706">
+                    <p class="diaryTitle">2019.07.06</p>
+                    <p class="diaryContent">
+                        新增網站更新紀錄、清晰模式提示訊息、logo提示訊息<br />
+                        增加留言板的部分顯示功能：如果留言超過五行會隱藏並出現「顯示全部內容」按鈕<br />
+                        將「學習資源」移至頁尾<br />
+                        在頁尾添加「聯絡我們」
+                    </p>
+                </div>
+                <div class="singleDiary" id="W20190705">
+                    <p class="diaryTitle">2019.07.05</p>
+                    <p class="diaryContent">增加了閱讀進度條</p>
+                </div>
+                <div class="singleDiary" id="W20190704">
+                    <p class="diaryTitle">2019.07.04以前：網站各項功能</p>
+                    <p class="diaryContent">
+                        左側導航欄懸浮水彩效果<br />
+                        音樂控制台、播放列表<br />
+                        左側導航欄<br />
+                        橫向導航欄(往下滾動將自動貼齊頂部)<br />
+                        留言板各項功能：留言、喜歡不喜歡、回覆留言<br />
+                        登入、註冊<br />
+                        搜尋欄<br />
+                        「我接觸過的程式語言」放大檢視功能<br />
+                        背景圖片繪製
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="page-foot">
+            <div class="reference">
+                <div id="contactUs" class="footBlock">
+                    <p class="title">教學網站</p>
+                    <a href="http://www.runoob.com/"><p>菜鳥教程</p></a>
+                    <a href="https://fishc.com.cn/forum.php"><p>魚C論壇</p></a>
+                    <a href="https://www.w3schools.com/"><p>w3schools</p></a>
+                </div>
+                <div id="learningResource" class="footBlock">
+                    <p class="title">學習資源</p>
+                    <a href="https://www.bilibili.com/video/av4050443?from=search&seid=1213869023799860049"><p>Python</p></a>
+                    <a href="https://www.bilibili.com/video/av21540971?from=search&seid=15216684865074163116"><p>Python 數據結構</p></a>
+                    <a href="https://www.bilibili.com/video/av15241731?from=search&seid=7139442769080263842"><p>HTML5</p></a>
+                    <a href="https://www.bilibili.com/video/av15269197?from=search&seid=16317690703112301159"><p>CSS3</p></a>
+                    <a href="https://www.bilibili.com/video/av34087791?from=search&seid=16067775456937605326"><p>Javascript</p></a>
+                    <a href="https://www.bilibili.com/video/av50587595"><p>Javascript高級</p></a>
+                    <a href="https://www.bilibili.com/video/av22807707"><p>jQuery+Ajax</p></a>
+                    <a href="https://www.bilibili.com/video/av24950506/"><p>Bootstrap</p></a>
+                </div>
+            </div>
+            <ul class="icomoon relatedWebsites clearfix">
+                <a href="https://www.youtube.com/" target="_blank"><li></li></a>
+                <a href="https://www.facebook.com/" target="_blank"><li></li></a>
+                <a href="https://stackoverflow.com/" target="_blank"><li></li></a>
+                <a href="https://icomoon.io/" target="_blank"><li></li></a>
+                <a href="https://www.google.com/?hl=zh_TW" target="_blank"><li></li></a>
+            </ul>
+        </div>
+    </body>
+</html>
