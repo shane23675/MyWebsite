@@ -476,10 +476,22 @@
                         <br /><span class="listItem">一次將所有檔案從工作區移至暫存區</span>
                         <br />9.git commit -am "備註" (注意大小寫)
                         <br /><span class="listItem">一次將所有檔案從暫存區移至本地庫</span>
+                        <br />10.git reflog
+                        <br /><span class="listItem">顯示歷史版本紀錄，是git log方法的一個分支，我認為查看版本紀錄時只要會用這個就好了</span>
+                        <br /><img src="images/git reflog.jpg"/>
                         <br />---
                         <br />基本上流程就是
                         <br />在目標資料夾git init -> git add 目標檔案 -> git commit -m "備註" 目標檔案名稱
                         <br />就可以更新完成了
+                        <br />---
+                        <br /><b>版本轉換</b>
+                        <br />建立了這麼多分支
+                        <br />得使用如下操作來在版本間切換
+                        <br />首先用git reflog取得版本號
+                        <br />
+                        <br />指令： git reset --hard 版本號縮寫
+                        <br />
+                        <br />切換成功!
                     </p>
                 </div>
                 <div class="singleDiary" id="L20190724">
