@@ -889,7 +889,6 @@ $("nav").delegate("#searching", "propertychange input", function(){
 //點擊搜尋結果可以跳轉到對應頁面
 //監聽搜尋結果的點擊事件
 $("#searchingHint").delegate(".searchingResult", "click", function(){
-	c($(this).text());
 	//讓搜尋欄的內容變成對應的字符串
 	$searchingBox.val($(this).text());
 	//觸發點擊搜尋按鈕
