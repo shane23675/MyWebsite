@@ -1139,6 +1139,7 @@ select {
 .listItem {
     display: inline-block;
     margin-left: 20px;
+    font-style: italic;
 }
 /*圖片放大檢視區*/
 #zoomIn {

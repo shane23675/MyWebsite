@@ -447,6 +447,78 @@
             <div id="structure05">
                 <!--學習日誌-->
                 <h2>學習日誌</h2>
+                <div class="singleDiary" id="L20190726">
+                    <p class="diaryTitle">2019.07.26</p>
+                    <p class="diaryContent">
+                        今天還是繼續學習Git的相關操作及概念
+                        <br />1. git reset --hard/--mixed/--soft的差異
+                        <br /><span class="listItem">hard會將本地庫的資料版本同步到暫存區和工作區，mixed只會同步到暫存區，soft就只會改變本地庫本身。所以mixed和soft都不會讓可見的檔案(工作區)發生變化，但目前不知道這個方法有何實際用途。</span>
+                        <br />2. git diff 檔案名稱
+                        <br /><span class="listItem">比較該檔案目前在工作區和暫存區的差異，所以如果已經使用add方法將檔案更新至暫存區，則此方法無法檢測出改變</span>
+                        <br />3. git diff HEAD[版本參數] 檔案名稱
+                        <br /><span class="listItem">比較該檔案目前在工作區和本地庫(可選擇版本)的差異</span>
+                        <br />
+                        <br /><b>創建分支</b>
+                        <br />為何要創建分支?
+                        <br />在開發一些比較大的項目時
+                        <br />一個功能可能要寫大量的代碼
+                        <br />此時使用分支可以讓主幹(master)的伺服器正常運行
+                        <br />也可以避免開發時的Bug影響到主幹運作
+                        <br />等到確定分支的功能可以正常運行後
+                        <br />再將該分支合併(merge)回主幹上，進行一次版本升級
+                        <br />以下是有關分支的操作
+                        <br />
+                        <br />1. git branch -v
+                        <br /><span class="listItem">查看所有分支以及目前分支位置</span>
+                        <br />2. git branch 分支名稱
+                        <br /><span class="listItem">創建一個自行命名的新分支</span>
+                        <br />3. git checkout 分支名稱
+                        <br /><span class="listItem">切換到某個分支上</span>
+                        <br />
+                        <br /><b>合併分支</b>
+                        <br />合併前必須先將目前位置切換到接受合併的分支上(通常是master，反正就是最後會留下來的那一個分支)，再進行合併操作
+                        <br />Git會自動偵測修改的部分
+                        <br />將修改的部分添加到主幹(目標分支)上
+                        <br />
+                        <br />1. git merge 分支名稱
+                        <br /><span class="listItem">將該分支合併到目前分支上</span>
+                        <br />
+                        <br />但若是合併時發生衝突
+                        <br />就是當兩個分支對同一個部分進行修改
+                        <br />此時會回報Merge conflict合併衝突
+                        <br />此時產生衝突的文件會被加入註記
+                        <br />記錄了兩個分支衝突的部分
+                        <br />此時需要手動將該文件修改成要保留的樣子
+                        <br />再使用add方法提交
+                        <br />接著使用
+                        <br />git commit -m"備註"
+                        <br />來解決合併衝突
+                        <br />注意上面這行代碼最後不寫上檔案名稱
+                        <br />因為在衝突發生後
+                        <br />要先commit的一定是產生衝突的檔案
+                        <br />此時若還寫上檔案名稱則會報錯
+                        <br />
+                        <br /><b>遠程庫(GitHub)和本地庫的傳輸</b>
+                        <br />創建好遠程庫後
+                        <br />會得到遠程庫的網址
+                        <br />這裡介紹檔案傳輸相關方法
+                        <br />
+                        <br />1. git remote add origin 遠程庫網址
+                        <br /><span class="listItem">可以用origin這個變數來儲存遠程庫網址</span>
+                        <br />2. git remote -v
+                        <br /><span class="listItem">查看當前遠程庫網址</span>
+                        <br />3. git push origin master
+                        <br /><span class="listItem">將本地庫master push到遠程庫上(遠程庫網址已儲存在origin中)</span>
+                        <br />4. git clone 遠程庫網址
+                        <br /><span class="listItem">此方法是在多人協作時，要將別人的資料下載到自己的本地庫上，得先用cd移動至目標資料夾，接著不必使用git init，直接使用clone方法即可下載，也會將該資料夾自動初始化，也會將此目錄的origin儲存該遠程庫網址</span>
+                        <br />5. 邀請成員加入協作
+                        <br /><span class="listItem">遠程庫管理員若要邀請協作成員，則須去GitHub的repository的setting執行Copy invite link，該成員在網頁上點擊接受後即可推送資料至該遠程庫</span>
+                        <br />6. git fetch origin master
+                        <br /><span class="listItem">可以將遠程庫的修改加入至本地庫變成分支，名為origin/master，須再使用merge方法將其合併到主幹上</span>
+                        <br />7. git pull origin master
+                        <br /><span class="listItem">等於是fetch + merge</span>
+                    </p>
+                </div>
                 <div class="singleDiary" id="L20190725">
                     <p class="diaryTitle">2019.07.25</p>
                     <p class="diaryContent">
