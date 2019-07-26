@@ -756,7 +756,7 @@ var $searchingBox = $("#searching");		//搜尋欄
 var $searchingBtn = $("#searching-button"); //搜尋按鈕
 var searchingHintOriginalText = $("#searchingHint").html(); //提示框原文
 var focusoutTimer; //先定義定時器以免報錯
-var address = location.href;            //取得現在地址
+var address = location.href.replace(/#[TLW]\d{8}$/, "");    //取得現在地址並去除#後的索引
 $searchingBox.focusin(function(){		//搜尋欄獲得焦點時出現提示
 	//先清除定時器
 	clearTimeout(focusoutTimer);
@@ -803,6 +803,7 @@ $searchingBtn.click(function(){			//按下搜尋按鈕
 	//讓左側導航欄隱藏
 	$("#side-nav").css("width", "0px")
 	//進行跳轉
+    c(address)
 	location.assign(address + "#" + target);
 	//讓視窗稍微向上滾動，改善用戶體驗
 	$(window).scrollTop($(window).scrollTop() - 150);
@@ -889,7 +890,6 @@ $("nav").delegate("#searching", "propertychange input", function(){
 //點擊搜尋結果可以跳轉到對應頁面
 //監聽搜尋結果的點擊事件
 $("#searchingHint").delegate(".searchingResult", "click", function(){
-	c($(this).text());
 	//讓搜尋欄的內容變成對應的字符串
 	$searchingBox.val($(this).text());
 	//觸發點擊搜尋按鈕
