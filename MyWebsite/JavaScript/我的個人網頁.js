@@ -532,13 +532,15 @@ function checkPlayingState() {
     if (!musicAudio.paused) {
         musicAudio.pause();
         //將圖標改為play樣式
-        $playBtn.text("");
+        $playBtn.find("i").removeClass("fa-pause");
+        $playBtn.find("i").addClass("fa-play");
     }
     //若歌曲目前暫停則播放
     else {
         musicAudio.play();
         //將圖標改為paused樣式
-        $playBtn.text("");
+        $playBtn.find("i").removeClass("fa-play");
+        $playBtn.find("i").addClass("fa-pause");
     };
 }
 //按下播放鍵
@@ -578,7 +580,7 @@ function changeSong(x){
 	$nowPlayingSongName.text(nowPlaying.name); //將<p>中的名稱改掉
 	$musicAudio.attr("src", nowPlaying.src); //將<audio>中的src修改
 	$nowPlayingLi = $($songListLi).eq(musicIndex); //將nowPlayingLi賦值
-	$nowPlayingLi.prepend("<span class='icomoon playingIcon'></span>"); //在正在播放的曲目<li>裡面加入一個<span>來裝入icomoon
+    $nowPlayingLi.prepend("<i class='fas fa-play playingIcon'></i>"); //在正在播放的曲目<li>裡面加入一個<i>來裝入icon
     $nowPlayingLi.css("background", "white"); //讓正在播放的曲目<li>的背景變成白色
     checkPlayingState() //檢查播放狀態
 };
@@ -625,14 +627,20 @@ $randomSongBtn.click(function(){  //按下隨機播放
 $shrinkSongListSpan.click(function(){ //按下播放列表右上角的縮小圖示
 	if ($($songList).css("height") == "71px"){
 		$($songList).css("height", ""); //將播放列表的高度恢復預設值
-		$($songList).css("opacity", ""); //將播放列表的透明度恢復預設值
-		$($shrinkSongListSpan).text(""); //將右上角的縮小圖示恢復預設值
-		$($shrinkSongListSpan).attr("title", "最小化播放列表"); //將右上角的縮小圖示的title恢復預設值
+        $($songList).css("opacity", ""); //將播放列表的透明度恢復預設值
+        //將右上角的縮小圖示恢復預設值
+        $($shrinkSongListSpan).find("i").removeClass("fa-angle-up"); 
+        $($shrinkSongListSpan).find("i").addClass("fa-angle-down"); 
+        //將右上角的縮小圖示的title恢復預設值
+		$($shrinkSongListSpan).attr("title", "最小化播放列表"); 
 	}else{
 		$($songList).css("height", "71px"); //將播放列表的高度變小
-		$($songList).css("opacity", "0.2"); //將播放列表的透明度變小
-		$($shrinkSongListSpan).text(""); //將右上角的縮小圖示改變
-		$($shrinkSongListSpan).attr("title", "還原播放列表"); //將右上角的縮小圖示的title改變
+        $($songList).css("opacity", "0.2"); //將播放列表的透明度變小
+         //將右上角的縮小圖示改變
+        $($shrinkSongListSpan).find("i").removeClass("fa-angle-down");
+        $($shrinkSongListSpan).find("i").addClass("fa-angle-up"); 
+        //將右上角的縮小圖示的title改變
+		$($shrinkSongListSpan).attr("title", "還原播放列表"); 
 	};
 });
 $closeSongListSpan.click(function(){ //按下播放列表右上角的X
@@ -647,7 +655,7 @@ $musicAudio.on("ended", function(){ //結束後自動播放下一首
 		$($nextSongBtn).trigger("click");
 	});
 $.each(musicArray, function(index, music){		//將曲目添加到播放列表
-	$songListUl.append("<li>" + music.name + "<span class='icomoon deleteSongBtn' title='從播放列表移除' songindex='"+ index +"'></span></li>");	  //把<li>及刪除鈕<span>生成後加入<ul> 同時為<span>添加songIndex屬性
+	$songListUl.append("<li>" + music.name + "<i class='fa fa-close deleteSongBtn' title='從播放列表移除' songindex='"+ index +"'></i></li>");	  //把<li>及刪除鈕<i>生成後加入<ul> 同時為<span>添加songIndex屬性
 	music.index = index; //為每個Music對象添加一個index屬性，方便使用
 });
 var $songListLi = $("#songList>ul li"); //播放列表中所有的<li>  在這裡才宣告，否則<li>還未創建

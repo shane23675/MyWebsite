@@ -352,7 +352,7 @@ body {     /*預設字體大小*/
 .deleteSongBtn:hover {
 	color: red;
 }
-#songList>ul li:hover>span.deleteSongBtn {/* 懸浮於曲目時，顯示刪除按鈕 */
+#songList>ul li:hover>i.deleteSongBtn {/* 懸浮於曲目時，顯示刪除按鈕 */
 	display: block;
 }
 .playingIcon {	/* 正在播放曲目的播放icon */
@@ -763,17 +763,6 @@ nav>span { /*左側菜單鈕*/
 	0%{color: white; background: pink;}
 	100%{color: black; background: transparent;}
 }
-/*使用icomoon字體*/
-@font-face {
-	font-family: 'IcoMoon-Free';
-	src: url('../font/IcoMoon-Free.ttf');
-	font-weight: normal;
-	font-size: normal;
-}
-.icomoon {  
-	font-family: IcoMoon-Free!important;
-	font-weight: normal;
-}
 /*頁尾*/
 #page-foot {
     display: flex;
@@ -807,9 +796,6 @@ nav>span { /*左側菜單鈕*/
 	color: rgb(244, 128, 36);
 }
 .relatedWebsites a:nth-child(4) li:hover {
-	color: white;
-}
-.relatedWebsites a:nth-child(5) li:hover {
 	color: #4e8df5;
 }
 .relatedWebsites a li:hover {

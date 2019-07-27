@@ -6,6 +6,8 @@
     <title>我的個人網頁</title>
     <link rel="Shortcut Icon" type="image/x-icon" href="images/M.png" />
     <link rel="stylesheet" href="CSS/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="CSS/我的個人網頁.css">
     <script src="JavaScript/jQuery.js" defer></script>
     <script src="JavaScript/jquery.mCustomScrollbar.concat.min.js" defer></script>
@@ -34,29 +36,29 @@
                     <div class="timeInfo">01:23/04:56</div>
                 </div>
                 <ul id="playTool-1" class="clearfix">
-                    <li id="prevSongBtn" class="icomoon" title="上一首"></li>
-                    <li id="playBtn" class="icomoon" title="播放/暫停"></li>
-                    <li id="nextSongBtn" class="icomoon" title="下一首"></li>                    
+                    <li id="prevSongBtn"  title="上一首"><i class="fas fa-backward"></i></li>
+                    <li id="playBtn"  title="播放/暫停"><i class="fas fa-pause"></i></li>
+                    <li id="nextSongBtn"  title="下一首"><i class="fas fa-forward"></i></li>                    
                 </ul>
                 <ul id="playTool-2" class="clearfix">
-                    <li id="randomSongBtn" class="icomoon" title="隨機播放一條曲目"></li>
-                    <li id="showSongListBtn" class="icomoon" title="播放列表"></li>
+                    <li id="randomSongBtn"  title="隨機播放一條曲目"><i class="fas fa-random"></i></li>
+                    <li id="showSongListBtn"  title="播放列表"><i class="fas fa-list"></i></li>
                 </ul>
                 <ul id="volumeBar">
-                    <li class="icomoon muteBtn" title="靜音"></li>
+                    <li class="icomoon muteBtn" title="靜音"><i class="fas fa-volume-off"></i></li>
                     <li class="barBg"><div class="bar"></div><div class="dot"></div></li>
-                    <li class="icomoon louderBtn" title="音量最大"></li>
+                    <li class="icomoon louderBtn" title="音量最大"><i class="fas fa-volume-up"></i></li>
                 </ul>
             </div>
             <div id="songList">
                 <!--播放列表-->
-                <p>播放列表</p> <span class="icomoon" title="最小化播放列表"></span><!--最小化按鈕--><span class="icomoon" title="隱藏播放列表"></span><!--關閉按鈕-->
+                <p>播放列表</p> <span  title="最小化播放列表"><i class="fas fa-angle-down"></i></span><!--最小化按鈕--><span  title="隱藏播放列表"><i class="fa fa-close"></i></span><!--關閉按鈕-->
                 <ul class="mCustomScrollbar" data-mcs-theme="minimal-dark"></ul><!--用來放置歌曲列表的ul，裡面的li由JS生成-->
             </div>
         </div>
         <form id="registerForm" action="">
             <!--註冊表單-->
-            <p>註冊<span class="icomoon"></span></p>
+            <p>註冊</p>
             <p><label>姓名：<br /><input type="text" placeholder="請輸入姓名" name="username" required></label></p>
             <p><label>信箱：<br /><input type="email" placeholder="user_name@gmail.com" name="email"></label></p>
             <p>性別：&ensp;&ensp;男<input type="radio" name="gender" checked="checked"> &ensp;&ensp;女<input type="radio" name="gender"></p>
@@ -103,7 +105,7 @@
         </form>
         <form id="logInForm" action="">
             <!--登入表單-->
-            <p>登入<span class="icomoon"></span></p>
+            <p>登入</p>
             <p><label>帳號：<span class="errorMsg">帳號由英數字組成，僅能以英文字母開頭，總長6-12位</span><br /><input type="text" placeholder="請輸入帳號" class="logInInfo" autocomplete></label></p>
             <p><label>密碼：<span class="errorMsg">帳號由英數字組成，總長6-12位</span><br /><input type="password" placeholder="請輸入密碼" class="logInInfo" autocomplete></label></p>
             <hr>
@@ -112,7 +114,7 @@
         </form>
         <div id="darkGlass">
             <!--網頁蒙版-->
-            <span class="icomoon" title="關閉"></span><!--關閉按鈕-->
+            <span  title="關閉"><i class="fas "></i></span><!--關閉按鈕-->
         </div>
         <ul id="lang-introduction-zoomIn">
             <!--程式語言介紹 放大檢視-->
@@ -134,7 +136,7 @@
         <div class="filler"></div><!--nav的填充物-->
         <nav>
             <!--橫向導航欄-->
-            <span id="menuBtn" class="icomoon"></span>
+            <span id="menuBtn" ><i class="fa fa-list"></i></span>
             <button id="logInButton" class="logSystem">登入</button>
             <button value="註冊" id="registerButton" class="logSystem">註冊</button>
             <button id="cleanModeBtn" class="hidden-xs">清晰模式</button>
@@ -154,7 +156,7 @@
                     <li class="logOut">登出</li>
                 </ul>
             </div>
-            <span id="searching-button" class="icomoon search hidden-xs"></span>
+            <span id="searching-button" class="icomoon search hidden-xs"><i class="fas fa-search"></i></span>
             <input type="search" placeholder="請輸入文章ID" id="searching" class="search hidden-xs" autocomplete="off">
             <div id="searchingHint">
                 <!--搜尋欄說明-->
@@ -588,7 +590,6 @@
                         <br />以後應該會將這個技術運用在網站新創建的部分
                     </p>
                 </div>
-                <h2>學習日誌</h2>
                 <div class="singleDiary" id="L20190722">
                     <p class="diaryTitle">2019.07.22</p>
                     <p class="diaryContent">
@@ -913,6 +914,12 @@
             <div id="structure06">
                 <!--網站更新紀錄-->
                 <h2>網站更新紀錄</h2>
+                <div class="singleDiary" id="W20190727">
+                    <p class="diaryTitle">2019.07.27</p>
+                    <p class="diaryContent">
+                        修正字體圖標顯示問題：從Icomoon改用Font Awesome
+                    </p>
+                </div>
                 <div class="singleDiary" id="W20190726">
                     <p class="diaryTitle">2019.07.26</p>
                     <p class="diaryContent">
@@ -1056,14 +1063,14 @@
                     <a href="https://www.bilibili.com/video/av50587595"><p>Javascript高級</p></a>
                     <a href="https://www.bilibili.com/video/av22807707"><p>jQuery+Ajax</p></a>
                     <a href="https://www.bilibili.com/video/av24950506/"><p>Bootstrap</p></a>
+                    <a href="https://www.bilibili.com/video/av51983266/"><p>Git & GitHub</p></a>
                 </div>
             </div>
             <ul class="icomoon relatedWebsites clearfix">
-                <a href="https://www.youtube.com/" target="_blank"><li></li></a>
-                <a href="https://www.facebook.com/" target="_blank"><li></li></a>
-                <a href="https://stackoverflow.com/" target="_blank"><li></li></a>
-                <a href="https://icomoon.io/" target="_blank"><li></li></a>
-                <a href="https://www.google.com/?hl=zh_TW" target="_blank"><li></li></a>
+                <a href="https://www.youtube.com/" target="_blank"><li><i class="fab fa-youtube"></i></li></a>
+                <a href="https://www.facebook.com/" target="_blank"><li><i class="fab fa-facebook"></i></li></a>
+                <a href="https://stackoverflow.com/" target="_blank"><li><i class="fab fa-stack-overflow"></i></li></a>
+                <a href="https://www.google.com/?hl=zh_TW" target="_blank"><li><i class="fab fa-google"></i></li></a>
             </ul>
         </div>
     </body>
