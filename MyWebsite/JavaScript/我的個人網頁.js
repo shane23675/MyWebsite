@@ -756,7 +756,7 @@ var $searchingBox = $("#searching");		//搜尋欄
 var $searchingBtn = $("#searching-button"); //搜尋按鈕
 var searchingHintOriginalText = $("#searchingHint").html(); //提示框原文
 var focusoutTimer; //先定義定時器以免報錯
-var address = location.href;            //取得現在地址
+var address = location.href.replace(/#[TLW]\d{8}$/, "");            //取得現在地址並去除#後面的字串
 $searchingBox.focusin(function(){		//搜尋欄獲得焦點時出現提示
 	//先清除定時器
 	clearTimeout(focusoutTimer);
