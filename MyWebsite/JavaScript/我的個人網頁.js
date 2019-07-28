@@ -1,4 +1,4 @@
-var c = console.log;
+﻿var c = console.log;
 
 //頂部左側導航欄
 var button_side_nav = document.querySelector("nav span:first-child"); //左上角的按鈕
