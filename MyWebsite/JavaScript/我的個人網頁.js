@@ -7,11 +7,9 @@ var songList = document.querySelector("#songList");     //歌曲播放列表
 function main_menu(){
 	if (parseInt(window.getComputedStyle(sideNav).width) == "0"){
 		sideNav.style.width = "300px";
-		songList.style.left = "300px";
 		button_side_nav.style.color = "black";
 	}else{
 		sideNav.style.width = "0px";
-		songList.style.left = "0px";
 		button_side_nav.style.color = "gray";
 	};
 };

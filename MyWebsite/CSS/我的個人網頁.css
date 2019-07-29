@@ -287,7 +287,7 @@ body {     /*預設字體大小*/
 	width: 0px;
 	height: 500px;
 	background: #7bea7b;
-	left: 300px;
+	left: 0px;
 	bottom: 0px;
 	transition: all 0.3s;
 	/*padding: 20px;     若將padding設在此處會使關閉播放列表(width: 0;)時padding把盒子撐開*/
