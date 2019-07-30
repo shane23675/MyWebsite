@@ -249,6 +249,31 @@
             <div id="structure02">
                 <!--職訓筆記-->
                 <h2>職訓筆記</h2>
+                <div class="singleDiary" id="T20190730">
+                    <p class="diaryTitle">2019.07.30</p>
+                    <p class="diaryContent">
+                        本日課程：資料庫設計與開發實務/網站資訊系統程式設計
+                        <br />今天資料庫的部分主要在談正規化
+                        <br />正規化有六步，但通常做到第三步就可以解決資料存入、刪除時的所有問題了
+                        <br />---
+                        <br />第一正規化：
+                        <br /><span class="listItem">一個欄位只能輸入一個值</span>
+                        <br />第二正規化：
+                        <br />
+                            <span class="listItem">
+                                清除「部分功能相依」。要了解何謂「部分功能相依」就得先了解何謂「完全功能相依」，「完全功能相依」
+                                是指當欄位X可以直接決定欄位Y(X確定則Y確定)；「部分功能相依」則是當X和Y(或更多)同時確定時才能決定欄位Z，
+                                此時欄位Z部分功能相依於X及Y。
+                                <br />要清除「部分功能相依」得將X、Y、Z獨立成一張新的資料表，並保留X於主要資料表中。
+                            </span>
+                        <br />第三正規化：
+                        <br />
+                            <span class="listItem">
+                                清除「遞移相依」。所謂「遞移相依」是指X確定則Y確定，而Y確定則Z確定，此時Z遞移相依於X。要清除遞移相依，
+                                只需要將Y和Z另外製成資料表確定其對應關係，並在主資料表中保留X和Y。
+                            </span>
+                    </p>
+                </div>
                 <div class="singleDiary" id="T20190723">
                     <p class="diaryTitle">2019.07.23</p>
                     <p class="diaryContent">
