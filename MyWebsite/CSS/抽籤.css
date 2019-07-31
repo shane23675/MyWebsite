@@ -1,0 +1,35 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-size: 12px;
+    width: 70%;
+    margin: 100px auto;
+    border: 2px #333 solid;
+}
+div {
+    height: 12px;
+    width: 100%;
+    line-height: 12px;
+    background: #b6ff00;
+    white-space: nowrap;
+    margin: 0 0 5px;
+}
+section {
+    width: 90%;
+    border-right: 2px #999 solid;
+}
+main div.maxDiv {
+    height: 48px;
+    width: 100%;
+    line-height: 48px;
+    font-size: 40px;
+    background: red;
+    color: white;
+    white-space: nowrap;
+}
+/*div::after {
+    content: "123";
+    text-align: right;
+}*/
