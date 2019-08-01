@@ -46,6 +46,7 @@ main section div:hover {
 footer {
 	width: 60%;
 	margin: 20px auto;
+	overflow: hidden;
 }
 input {
 	box-sizing: border-box;
@@ -62,6 +63,13 @@ button {
 	background: rgb(153, 179, 255);
 	width: 18%;
 	border-radius: 5px;
+}
+@media only screen and (max-width: 860px){
+	input, button {
+		float: left;
+		width: 100%;
+		margin-bottom: 10px;
+	}
 }
 /*
 */	
