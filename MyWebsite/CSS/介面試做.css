@@ -1,0 +1,67 @@
+﻿* {
+	padding: 0;
+	margin: 0;
+	outline: none;
+}
+a {
+	text-decoration: none;
+	color: inherit;
+}
+/*標題：桌遊資源整合系統*/
+header {
+	height: 150px;
+	background: #258;
+	overflow: hidden;
+}
+h1 {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	text-align: center;
+}
+/*登入頁面*/
+#logInForm {
+	max-width: 500px;
+	height: 600px;
+	background: #ddf;
+	margin: 50px auto;
+	padding: 20px;
+	overflow: hidden;
+	text-align: center;
+}
+.logInText {
+	margin: 20px auto;
+	margin-bottom: 100px;
+	font-weight: 800;
+	font-size: 30px;
+}
+#logInForm input {
+	box-sizing: border-box;
+	height: 50px;
+	width: 300px;
+	padding-left: 10px;
+	margin-bottom: 20px;
+}
+/*登入按鈕*/
+#logInBtn {
+	height: 50px;
+	width: 300px;
+	background: #aad;
+	border: none;
+	cursor: pointer;
+}
+/*立即註冊按鈕*/
+#registerBtn {
+	border-right: 1px solid #888;
+}
+#logInOption {
+	margin: 100px auto;
+}
+#logInForm span {
+	padding: 0 10px;
+}
+
+
+
+
+
