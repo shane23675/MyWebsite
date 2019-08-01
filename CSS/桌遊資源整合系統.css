@@ -1,0 +1,129 @@
+﻿* {
+	padding: 0;
+	margin: 0;
+	outline: none;
+}
+a {
+	text-decoration: none;
+	color: inherit;
+}
+li {
+    list-style: none;
+}
+.title {
+    text-align: center;
+    font-weight: 800;
+}
+/*標題：桌遊資源整合系統*/
+header {
+	height: 150px;
+	background: #258;
+	overflow: hidden;
+}
+h1, h2, h3, h4, h5, h6 {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	text-align: center;
+}
+/*登入頁面*/
+#logInForm {
+	max-width: 500px;
+	height: 600px;
+	background: #ddf;
+	margin: 50px auto;
+	padding: 20px;
+	overflow: hidden;
+	text-align: center;
+}
+.logInText {
+	margin: 20px auto;
+	margin-bottom: 100px;
+	font-weight: 800;
+	font-size: 30px;
+}
+#logInForm input {
+	box-sizing: border-box;
+	height: 50px;
+	width: 300px;
+	padding-left: 10px;
+	margin-bottom: 20px;
+}
+/*登入按鈕*/
+#logInBtn {
+	height: 50px;
+	width: 300px;
+	background: #aad;
+	border: none;
+	cursor: pointer;
+}
+/*立即註冊按鈕*/
+#registerBtn {
+	border-right: 1px solid #888;
+}
+#logInOption {
+	margin: 100px auto;
+}
+#logInForm span {
+	padding: 0 10px;
+}
+/*登入後選項*/
+#mainFunctions {
+    display: none;
+}
+.option {
+    box-sizing: border-box;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    border: 1px #333 solid;
+    text-align: center;
+    padding-top: 50px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+/*店內座位資訊*/
+#seatInfo {
+    display: none;
+    max-width: 480px;
+    margin: 20px auto;
+}
+#seatInfo>ul>li {
+    border: 1px #aaa solid;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+#seatInfo>ul>li>span {
+    float: right;
+    padding-right: 20px;
+    cursor: pointer;
+}
+#seatInfo>ul>li>i {
+    padding-right: 20px;
+}
+/*新增桌子視窗*/
+#addTable {
+    position: fixed;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 300px;
+    border-radius: 20px;
+    border: 3px #aad solid;
+    background: white;
+    transition: all 0.5s; 
+}
+#addTable p.title {
+    margin: 20px auto;
+    font-size: 20px;
+}
+#addTable .marginLeft {
+    margin-left: 90px;
+}
+#addTable .marginBottom {
+    margin-bottom: 30px;
+}
+
+
+

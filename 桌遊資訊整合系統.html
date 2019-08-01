@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>介面試做</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/桌遊資源整合系統.css" />
+    <script src="JavaScript/jQuery.js" defer></script>
+    <script src="JavaScript/桌遊資源整合系統.js" defer></script>
+</head>
+<body>
+	<header>
+		<h1>桌遊資源整合系統</h1>
+	</header>
+    <main>
+        <!--登入表單-->
+        <div id="logInForm">
+            <p class="logInText">登入</p>
+            <input type="text" placeholder="帳號(不必輸入，直接按登入)"><br>
+            <input type="password" placeholder="密碼"><br>
+            <button id="logInBtn">登入</button>
+            <div id="logInOption">
+                <a href="#"><span id="registerBtn">立即註冊</span></a><a href="#"><span>忘記密碼</span></a>
+            </div>
+        </div>
+        <!--功能主選單-->
+        <div class="row" id="mainFunctions">
+            <div class="col-sm-0 col-lg-2 "></div>
+            <div class="col-sm-6 col-lg-2 "><div class="option bg-primary" id="optA">店內座位資訊</div></div>
+            <div class="col-sm-6 col-lg-2"><div class="option bg-danger">功能B(未開放)</div></div>
+            <div class="col-sm-6 col-lg-2"><div class="option bg-important">功能C(未開放)</div></div>
+            <div class="col-sm-6 col-lg-2"><div class="option bg-warning">功能D(未開放)</div></div>
+            <div class="col-sm-0 col-lg-2 "></div>
+        </div>
+        <!--功能A：店內座位資訊-->
+        <div id="seatInfo">
+            <h3>店內座位資訊</h3>
+            <ul id="tables">
+                <li id="addNewTable"><i class="fas fa-plus"></i>新增一張桌子</li>
+                <!--<li><i class="fas fa-dice"></i>五人桌<span>看照片</span></li>-->
+            </ul>
+            <!--新增桌子視窗-->
+            <div id="addTable">
+                <p class="title">新增一張桌子</p>
+                <p class="marginLeft">選擇人數：</p>
+                <select class="marginLeft marginBottom tableSize">
+                    <option>兩人桌</option>
+                    <option>三人桌</option>
+                    <option>四人桌</option>
+                    <option>五人桌</option>
+                    <option>六人桌</option>
+                    <option>七人桌</option>
+                    <option>八人桌</option>
+                    <option>九人桌</option>
+                    <option>十人桌</option>
+                    <option>十一人桌</option>
+                    <option>十二人桌</option>
+                </select>
+                <p class="marginLeft">上傳照片：</p>
+                <input type="file" name="上傳照片" class="marginLeft marginBottom" />
+                <br />
+                <button class="btn btn-primary marginLeft marginBottom confirmBtn">新增</button>
+                <button class="btn btn-secondary marginLeft marginBottom cancelBtn">取消</button>
+            </div>
+        </div>
+
+        
+    </main>
+	<footer>
+	</footer>
+</body>
+</html>
