@@ -8,19 +8,27 @@ body {
     margin: 100px auto;
     border: 2px #333 solid;
 }
-div {
+h1 {
+	text-align: center;
+}
+main {
+	min-height: 100px;
+	padding: 20px 0;
+}
+section div {
     height: 12px;
     width: 100%;
     line-height: 12px;
     background: #b6ff00;
     white-space: nowrap;
     margin: 0 0 5px;
+	transition: all 0.3s;
 }
 section {
     width: 90%;
-    border-right: 2px #999 solid;
+    border-right: 2px #999 dashed;
 }
-main div.maxDiv {
+section div.maxDiv {
     height: 48px;
     width: 100%;
     line-height: 48px;
@@ -29,7 +37,31 @@ main div.maxDiv {
     color: white;
     white-space: nowrap;
 }
-/*div::after {
-    content: "123";
-    text-align: right;
-}*/
+main section div:hover {
+	background: #999;
+    height: 48px;
+    line-height: 48px;
+    font-size: 40px;
+}
+footer {
+	width: 60%;
+	margin: 20px auto;
+}
+input {
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 3px #777 solid;
+	width: 40%;
+	height: 30px;
+	outline: none;
+}
+button {
+	box-sizing: border-box;
+	outline: none;
+	height: 30px;
+	background: rgb(153, 179, 255);
+	width: 18%;
+	border-radius: 5px;
+}
+/*
+*/	
