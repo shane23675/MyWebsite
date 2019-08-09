@@ -52,23 +52,67 @@
     }
     //append方法
     CycleLinkedList.prototype.append = function (src, name) {
+		//***這裡面的this會指向調用append方法的實例對象本身***
         //創建一個SongNode對象
-        var song = new SongNode(src, name);
-
+        var newNode = new SongNode(src, name);
+		var headNode = this.headNode;
+		var tailNode = headNode.prev;
+		//將tailNode接上newNode
+		tailNode.next = newNode;
+		newNode.prev = tailNode;
+		//將newNode接上headNode
+		newNode.next = headNode;
+		headNode.prev = newNode;
     }
+	//遍歷方法(需傳入一個回調函數)
+	CycleLinkedList.prototype.travel = function (callback) {
+		//***這裡面的this會指向調用append方法的實例對象本身***
+		//將該CycleLinkedList實例對象中的每個節點輪流傳入callback
+		var cur = this.headNode;
+		//若該實例對象中無任何節點則返回
+		if (!cur){return};
+		do {
+			callback(cur);
+			cur = cur.next;
+		} while (cur != this.headNode);
+		
+	};
 
     //測試囉
-    var song1 = new SongNode("src1", "name1");
-    var song2 = new SongNode("src2", "name2");
-    var song3 = new SongNode("src3", "name3");
-    var nodeArray = [song1, song2, song3];
-
+    var nodeArray = [
+		new SongNode("music/買辣椒也用券《起風了》.mp3", "起風了"),
+		new SongNode("music/陳雪凝 - 綠色.mp3", "綠色"),
+		new SongNode("music/高爾宣 OSN -【最後一次】The Last Time.mp3", "最後一次"),
+		new SongNode("music/卓義峯 Yifeng Zhuo -〈再見煙火〉Goodbye Firework.mp3", "再見煙火"),
+		new SongNode("music/李榮浩 Ronghao Li - 年少有為 If I Were Young .mp3", "年少有為")
+	];
     var songList = new CycleLinkedList(nodeArray);
-    c(songList.headNode)
-    c(songList.headNode.next)
-    c(songList.headNode.prev)
-
-
+	
+	var audio = document.querySelector("audio");
+	var prevBtn = document.querySelector("#prevBtn");
+	var playBtn = document.querySelector("#playBtn");
+	var nextBtn = document.querySelector("#nextBtn");
+	var cur = songList.headNode;
+	audio.src = cur.src;
+	prevBtn.addEventListener("click", function(){
+		cur = cur.prev;
+		audio.src = cur.src;
+	}); 
+	nextBtn.addEventListener("click", function(){
+		cur = cur.next;
+		audio.src = cur.src;
+	}); 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
