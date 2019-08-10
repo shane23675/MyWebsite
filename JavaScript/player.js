@@ -7,7 +7,6 @@
         this.next = null;
         this.prev = null;
     }
-    //var song1 = new Node(src, name)
 
     //寫出一個雙向循環鍊表
     function CycleLinkedList(nodeArray) {
@@ -47,15 +46,21 @@
                 }
             });
         } else {
-            c("please use an array as parameter")
+            this.headNode = null;
         }
     }
 
-    //***這些方法裡面的this會指向調用append方法的實例對象本身***
+    //***這些方法裡面的this會指向調用該方法的實例對象本身***
     //append方法
-    CycleLinkedList.prototype.append = function (src, name) {
-        //創建一個Node對象
-        var newNode = new Node(src, name);
+    CycleLinkedList.prototype.append = function (newNode) {
+        //若鍊表為空
+        if (this.headNode == null) {
+            c("headNode == null")
+            this.headNode = newNode;
+            this.headNode.next = this.headNode;
+            this.headNode.prev = this.headNode;
+            return
+        }
         var headNode = this.headNode;
         var tailNode = headNode.prev;
         //將tailNode接上newNode
@@ -64,13 +69,24 @@
         //將newNode接上headNode
         newNode.next = headNode;
         headNode.prev = newNode;
+        c("pause")
     };
-    //remove方法(需傳入刪除目標名稱)
-    CycleLinkedList.prototype.remove = function (name) {
+    //remove方法(需傳入刪除目標節點)
+    CycleLinkedList.prototype.remove = function (node) {
         var headNode = this.headNode;
         cur = headNode;
         do {
-            if (cur.name == name) {
+            if (cur == node) {
+                //若刪除目標是頭節點，則將頭節點指標指向下一個node
+                if (cur == headNode) {
+                    //但若只剩下頭節點本身，而且它就是刪除目標，則直接讓頭節點指向空
+                    if (cur.next == cur) {
+                        this.headNode = null;
+                        return
+                    } else {
+                        this.headNode = cur.next;
+                    };
+                }
                 //將cur的前後節點相接
                 cur.prev.next = cur.next;
                 cur.next.prev = cur.prev;
@@ -114,12 +130,12 @@
 	var audio = document.querySelector("audio");
     var body = document.querySelector("body");
     var nowPlayingInfo = document.querySelector("#nowPlayingInfo");
-    var cur = songList.headNode;
     var isPlaying = false;
     var repeatState = 0;
     var randomState = false;
-    audio.src = cur.src;
-    nowPlayingInfo.innerText = cur.name;
+    //初始化：將cur指向第最後一首歌，然後執行nextSong()
+    var cur = songList.headNode.prev;
+    nextSong();
     //將所有相關的點擊事件委託給body監聽
     body.addEventListener("click", function (event) {
         switch (event.target.id) {
@@ -189,7 +205,7 @@
                     //將cur切換到此播放列表的軌道上
                     cur = randomSongList.headNode.prev;
                     //更改按鈕樣式
-                    randomBtn.style.color = "";
+                    randomBtn.style.color = "rgba(0, 0, 0, 1)";
                     //看看這列表長什麼樣子
                     randomSongList.travel(function (node) {
                         c(node.name);
@@ -198,7 +214,7 @@
                     //將cur切換回原先播放列表的軌道上
                     cur = songList.headNode.prev;
                     //更改按鈕樣式
-                    randomBtn.style.color = "rgba(0, 0, 0, 0.3)";
+                    randomBtn.style.color = "";
                 }
                 break
             //刪除歌曲的按鈕
@@ -233,7 +249,7 @@
             if (cur.next == songList.headNode) { return }
             nextSong();
         }
-        //2表示單曲播放
+        //2表示單曲循環播放
         else if (repeatState == 2) {
             audio.currentTime = 0;
             audio.play();
@@ -242,19 +258,44 @@
         else {
             nextSong();
         }
-
     });
-	
+	//創建所有歌曲列表
+    var allSongs = document.querySelector("#allSongs");
+    allSongs.list = songList;
+    songList.travel(function (node) {
+        //創建一個<li>
+        var li = document.createElement("li");
+        //將相關資訊丟進<li>
+        li.innerText = node.name;
+        li.node = node;
+        //將<li>丟進allSongs
+        allSongs.appendChild(li);
+    });
+	//創建另一個循環鍊表及歌單，用來給用戶客製化歌單
+    var selectedSongs = document.querySelector("#selectedSongs");
+    selectedSongs.list = new CycleLinkedList();
+    //監聽歌曲列表的雙擊事件的函數
+    function changeSongPosition(originUl, targetUl) {
+        originUl.addEventListener("dblclick", function (event) {
+            //將該node從原先的播放列表移除
+            originUl.list.remove(event.target.node);
+            //將該node添加到目標對應的歌曲鍊表
+            targetUl.list.append(event.target.node);
+            //將originUl中的<li>添加到selectSongs
+            targetUl.appendChild(event.target);
+            /*將該<li>從列表刪除：這一步不必操作，因為上面已經將originUl的event.target直接丟進targetUl
+            這個動作會直接讓原本在originUl的event.target消失*/
+        });
+    };
+    changeSongPosition(allSongs, selectedSongs);
+    changeSongPosition(selectedSongs, allSongs);
+
 	
 	
 
-
-
-
-	
-	
-	
-
-
+    var testBtn = document.querySelector("#testBtn");
+    testBtn.onclick = function () {
+        c(selectedSongs.list)
+    };
 
 }
