@@ -55,8 +55,7 @@
     CycleLinkedList.prototype.append = function (newNode) {
         //若鍊表為空
         if (this.headNode == null) {
-            c("headNode == null")
-            this.headNode = newNode;
+             this.headNode = newNode;
             this.headNode.next = this.headNode;
             this.headNode.prev = this.headNode;
             return
@@ -69,7 +68,6 @@
         //將newNode接上headNode
         newNode.next = headNode;
         headNode.prev = newNode;
-        c("pause")
     };
     //remove方法(需傳入刪除目標節點)
     CycleLinkedList.prototype.remove = function (node) {
@@ -133,23 +131,21 @@
     var isPlaying = false;
     var repeatState = 0;
     var randomState = false;
-    //初始化：將cur指向第最後一首歌，然後執行nextSong()
-    var cur = songList.headNode.prev;
-    nextSong();
+    //初始化：將cur指向第第一首歌，然後執行changeSong()
+    var cur = songList.headNode;
+    changeSong();
     //將所有相關的點擊事件委託給body監聽
     body.addEventListener("click", function (event) {
         switch (event.target.id) {
             //點擊上一首
             case "prevBtn":
                 cur = cur.prev;
-                audio.src = cur.src;
-                nowPlayingInfo.innerText = cur.name;
-                isPlaying = true;
-                refreshPlayingState();
+                changeSong();
                 break
             //點擊下一首
             case "nextBtn":
-                nextSong();
+                cur = cur.next;
+                changeSong();
                 break
             //點擊播放按鈕
             case "playBtn":
@@ -198,12 +194,19 @@
                 //改變隨機狀態
                 randomState = !randomState;
                 if (randomState) {
-                    //獲得一個隨機排列的nodeArray
-                    randomNodeArray = nodeArray.slice().sort(function () { return 0.5 - Math.random() })
+                    //清空randomNodeArray
+                    randomNodeArray = [];
+                    //將selectedSongs.list中的node取出塞到randomNodeArray中(此時是有序的)
+                    selectedSongs.list.travel(function (node) {
+                        randomNodeArray.push(node);
+                    })
+                    //將randomNodeArray隨機排序
+                    randomNodeArray = randomNodeArray.slice().sort(function () { return 0.5 - Math.random() })
                     //創建一個隨機排列的歌曲列表
                     randomSongList = new CycleLinkedList(randomNodeArray);
-                    //將cur切換到此播放列表的軌道上
-                    cur = randomSongList.headNode.prev;
+                    //將cur切換到此播放列表的軌道上並播放
+                    cur = randomSongList.headNode;
+                    changeSong();
                     //更改按鈕樣式
                     randomBtn.style.color = "rgba(0, 0, 0, 1)";
                     //看看這列表長什麼樣子
@@ -211,8 +214,19 @@
                         c(node.name);
                     });
                 } else {
-                    //將cur切換回原先播放列表的軌道上
-                    cur = songList.headNode.prev;
+                    //取得selectedSongs中的<li>
+                    var liArray = document.querySelectorAll("#selectedSongs>li");
+                    //創建一個li.node的容器
+                    var selectedSongsNodeArray = [];
+                    //將node依序推入容器中
+                    liArray.forEach(function (li) {
+                        selectedSongsNodeArray.push(li.node);
+                    });
+                    //將selectedSongs.list指向新的CycleLinkedList
+                    selectedSongs.list = new CycleLinkedList(selectedSongsNodeArray);
+                    //將cur切換回此播放列表的軌道上並更換歌曲
+                    cur = selectedSongs.list.headNode;
+                    changeSong();
                     //更改按鈕樣式
                     randomBtn.style.color = "";
                 }
@@ -233,21 +247,30 @@
             document.querySelector("#playBtn").className = "controlBtn fas fa-play";
         };
     }
-    //切換下一首的函數
-    function nextSong() {
-        cur = cur.next;
+    //切換歌曲的函數
+    function changeSong() {
         audio.src = cur.src;
         nowPlayingInfo.innerText = cur.name;
         isPlaying = true;
         refreshPlayingState();
+        //將上一首、下一首的title做修改(設定定時器是確保修改是發生在雙擊造成的node的轉移之後)
+        setTimeout(function () {
+            document.querySelector("#nextBtn").title = "下一首:  " + cur.next.name;
+            document.querySelector("#prevBtn").title = "上一首:  " + cur.prev.name;
+        }, 20);
     }
 	//結束時自動切換下一首
     audio.addEventListener("ended", function () {
         //1表示不循環播放的狀態
         if (repeatState == 1) {
-            //下一首歌為第一首則返回
-            if (cur.next == songList.headNode) { return }
-            nextSong();
+            //下一首歌為第一首則停止播放
+            if (cur.next == songList.headNode || cur.next == selectedSongs.list.headNode) {
+                isPlaying = false;
+                refreshPlayingState();
+            } else {
+                cur = cur.next;
+                changeSong();
+            };
         }
         //2表示單曲循環播放
         else if (repeatState == 2) {
@@ -256,7 +279,8 @@
         }
         //0表示循環播放
         else {
-            nextSong();
+            cur = cur.next;
+            changeSong();
         }
     });
 	//創建所有歌曲列表
@@ -289,7 +313,15 @@
     };
     changeSongPosition(allSongs, selectedSongs);
     changeSongPosition(selectedSongs, allSongs);
-
+    //點擊歌單中的歌
+    body.addEventListener("click", function (event) {
+        var songNode = event.target.node;
+        if (songNode instanceof Node) {
+            //將cur指向該歌曲並切歌
+            cur = songNode;
+            changeSong();
+        }
+    });
 	
 	
 

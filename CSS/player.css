@@ -19,10 +19,8 @@ li {
 }
 #allSongs {
     width: 200px;
-    min-height: 200px;
     background: lightblue;
 }#selectedSongs {
     width: 200px;
-    min-height: 200px;
     background: lightgreen;
 }
