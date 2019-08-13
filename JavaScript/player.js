@@ -7,7 +7,6 @@
         this.next = null;
         this.prev = null;
     }
-
     //寫出一個雙向循環鍊表
     function CycleLinkedList(nodeArray) {
         //儲存CycleLinkedList的this
@@ -324,10 +323,98 @@
     });
 	
 	
+	
+	//對拉bar的控制
+	function barControl(target, mousedownCallback=function(){}, mousemoveCallBack=function(){}, mouseupCallBack=function(){}){
+		var barBg = target.children[0];
+		var barFg = barBg.children[0];
+		//監聽target的mousedown事件
+		target.addEventListener("mousedown", function(event){
+			var value;
+			//mousedown後立即改變barFg
+			var offsetX = event.offsetX;
+			barFg.style.width = offsetX + "px";
+			//計算相對長度
+			value = event.offsetX / target.clientWidth;
+			//執行回調函數
+			mousedownCallback(value);
+			//mousemove的函數
+			function mousemove(event){
+				//計算barFg應有長度
+				var length = event.pageX - target.offsetLeft
+				//修正計算結果
+				if (length < 0){
+					length = 0;
+				}else if (length > target.clientWidth){
+					length = target.clientWidth;
+				};
+				//改變barFg
+				barFg.style.width = length + "px";
+				//計算相對長度
+				value = length / target.clientWidth;
+				//執行回調函數
+				mousemoveCallBack(value);
+			};
+			//mouseup時的函數
+			function mouseup(){
+				//移除window的mousemove事件
+				window.removeEventListener("mousemove", mousemove);
+				//執行回調函數
+				mouseupCallBack(value);
+				//移除window的mouseup事件
+				window.removeEventListener("mouseup", mouseup);
+			}
+			//mousedown後監聽window的mousemove及mouseup事件
+			window.addEventListener("mousemove", mousemove);
+			window.addEventListener("mouseup", mouseup);
+		});
+	}
+	//改變音量的函數
+	function changeVol(value){
+		audio.volume = value;
+	};
+	//改變進度的函數
+	function changeProgress(value){
+		audio.currentTime = audio.duration * value;
+	};
+	//設置音量條
+	barControl(document.querySelector("#volBar"), changeVol, changeVol);
+	//設置進度條
+	barControl(document.querySelector("#progressBar"),function(){
+		//點擊後移除audio播放時同步刷新進度條的行為
+		audio.removeEventListener("timeupdate", timeupdate);
+	},function(){},function(value){
+		changeProgress(value);
+		//放開後恢復audio播放時同步刷新進度條的行為
+		audio.addEventListener("timeupdate", timeupdate);
+	});
+	//監聽audio的播放事件
+	function timeupdate(){
+		var value = audio.currentTime / audio.duration;
+		var progressBar = document.querySelector("#progressBar");
+		var progressBarFg = document.querySelector("#progressBar .barFg");
+		progressBarFg.style.width = progressBar.clientWidth * value + "px";
+	}
+	audio.addEventListener("timeupdate", timeupdate);
 
     var testBtn = document.querySelector("#testBtn");
     testBtn.onclick = function () {
-        c(selectedSongs.list)
+        c(allSongs.list);
+		c(selectedSongs.list);
     };
+	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

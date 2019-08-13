@@ -1,6 +1,8 @@
 ﻿* {
     padding: 0;
     margin: 0;
+	user-select: none;
+	outline: none;
 }
 li {
     list-style: none;
@@ -17,10 +19,50 @@ li {
 #randomBtn {
     color: rgba(0, 0, 0, 0.3);
 }
+#repeatBtn {
+	transform: translateY(6px);
+}
+#songList {
+	overflow: hidden;
+}
+#songList>ul {
+	float: left;
+    width: 200px;
+	height: 400px;
+}
 #allSongs {
-    width: 200px;
     background: lightblue;
-}#selectedSongs {
-    width: 200px;
+}
+#selectedSongs {
     background: lightgreen;
 }
+/*拉bar*/
+.barShell {
+	height: 50px;
+	background: blue;
+}
+.barBg {
+	height: 50%;
+	background: #777;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.barFg {
+	height: 100%;
+	width: 50%;
+	background: pink;
+}
+/*音量條*/
+#volBar,
+#progressBar {
+	width: 400px;
+	margin: 0 auto;
+}
+
+
+
+
+
+
+
