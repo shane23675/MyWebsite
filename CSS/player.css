@@ -7,20 +7,113 @@
 li {
     list-style: none;
 }
+main {
+	max-width: 600px;
+	min-height: 400px;
+	background: #333;
+	margin: 100px auto;
+	overflow: hidden;
+}
+header {
+	height: 180px;
+	overflow: hidden;
+}
+figure {
+	background: orange;
+	width: 132px;
+	height: 132px;
+	margin: 20px 0 0 20px;
+	float: left;
+}
+#songInfo {
+	height: 132px;
+	width: 400px;
+	margin: 20px;
+	float: left;
+}
+#nowPlayingInfo {
+	color: white;
+	height: 30px;
+	line-height: 30px;
+	font-size: 20px;
+}
+#singer {
+	color: #ccc;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+}
+#panelTop {
+	color: #ccc;
+	height: 30px;
+	overflow: hidden;
+}
+#panelTop .controlBtn {
+	float: left;
+}
+#volBar {
+	height: 30px;
+	width: 100px;
+	float: right;
+}
+#progressBar {
+	height: 10px;
+}
+.barBg {
+	height: 5px;
+	background: #555;
+	border-radius: 5px;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.barFg {
+	background: lightgreen;
+	height: 100%;
+	border-radius: 5px;
+}
+#panelBottom {
+	color: #ccc;
+	height: 30px;
+	overflow: hidden;
+}
+#panelBottom .controlBtn {
+	float: right;
+}
+#timeInfo {
+	line-height: 30px;
+	font-size: 11px;
+}
+footer {
+	height: 150px;
+	background: lightgreen;
+} 
+
+
+
+
+
+
+
+
+
+
 .controlBtn {
-	width: 80px;
+	width: 30px;
 	height: 30px;
     line-height: 30px;
     text-align: center;
-    border: 2px #333 solid;
     cursor: pointer;
     user-select: none;
 }
-#randomBtn {
-    color: rgba(0, 0, 0, 0.3);
+.controlBtn:hover {
+	color: white;
 }
-#repeatBtn {
-	transform: translateY(6px);
+.controlBtn:active {
+	color: lightgreen;
+}
+#randomBtn {
+    color: rgba(204, 204, 204, 0.3);
 }
 #songList {
 	overflow: hidden;
@@ -35,29 +128,6 @@ li {
 }
 #selectedSongs {
     background: lightgreen;
-}
-/*拉bar*/
-.barShell {
-	height: 50px;
-	background: blue;
-}
-.barBg {
-	height: 50%;
-	background: #777;
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
-}
-.barFg {
-	height: 100%;
-	width: 50%;
-	background: pink;
-}
-/*音量條*/
-#volBar,
-#progressBar {
-	width: 400px;
-	margin: 0 auto;
 }
 
 

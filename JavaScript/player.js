@@ -1,9 +1,10 @@
 ﻿window.onload = function () {
     var c = console.log;
    //寫出一個Node類
-    function Node(src, name) {
+    function Node(src, name, singer) {
         this.src = src;
         this.name = name;
+		this.singer = singer;
         this.next = null;
         this.prev = null;
     }
@@ -107,19 +108,19 @@
 
     //測試囉
     var nodeArray = [
-		new Node("music/買辣椒也用券《起風了》.mp3", "起風了"),
-		new Node("music/陳雪凝 - 綠色.mp3", "綠色"),
-		new Node("music/高爾宣 OSN -【最後一次】The Last Time.mp3", "最後一次"),
-		new Node("music/卓義峯 Yifeng Zhuo -〈再見煙火〉Goodbye Firework.mp3", "再見煙火"),
-		new Node("music/李榮浩 Ronghao Li - 年少有為 If I Were Young .mp3", "年少有為"),
-        new Node("music/SHAUN – Way Back Home (feat. Conor Maynard).mp3", "Way Back Home"),
-        new Node("music/Maroon 5 - Girls Like You ft. Cardi B.mp3", "Girls Like You"),
-        new Node("music/LSD - Thunderclouds (Official Video) ft. Sia, Diplo, Labrinth.mp3", "Thunderclouds"),
-        new Node("music/LSD - Genius ft. Sia, Diplo, Labrinth.mp3", "Genius"),
-        new Node("music/Imagine Dragons - Thunder.mp3", "Thunder"),
-        new Node("music/Eric周興哲《 如果雨之後 The Chaos After You 》.mp3", "如果雨之後"),
-        new Node("music/《你要的全拿走》胡彥斌.mp3", "你要的全拿走"),
-        new Node("music/《体面》 Kelly于文文 .mp3", "體面")
+		new Node("music/買辣椒也用券《起風了》.mp3", "起風了", "買辣椒也用券"),
+		new Node("music/陳雪凝 - 綠色.mp3", "綠色", "陳雪凝"),
+		new Node("music/高爾宣 OSN -【最後一次】The Last Time.mp3", "最後一次The Last Time", "高爾宣 OSN"),
+		new Node("music/卓義峯 Yifeng Zhuo -〈再見煙火〉Goodbye Firework.mp3", "再見煙火 Goodbye Firework", "卓義峯 Yifeng Zhuo"),
+		new Node("music/李榮浩 Ronghao Li - 年少有為 If I Were Young .mp3", "年少有為 If I Were Young", "李榮浩 Ronghao Li"),
+        new Node("music/SHAUN – Way Back Home (feat. Conor Maynard).mp3", "Way Back Home", "SHAUN(feat. Conor Maynard)"),
+        new Node("music/Maroon 5 - Girls Like You ft. Cardi B.mp3", "Girls Like You", "Maroon 5 ft. Cardi"),
+        new Node("music/LSD - Thunderclouds (Official Video) ft. Sia, Diplo, Labrinth.mp3", "Thunderclouds", "LSD ft. Sia, Diplo, Labrinth"),
+        new Node("music/LSD - Genius ft. Sia, Diplo, Labrinth.mp3", "Genius", "LSD ft. Sia, Diplo, Labrinth"),
+        new Node("music/Imagine Dragons - Thunder.mp3", "Thunder", "Imagine Dragons"),
+        new Node("music/Eric周興哲《 如果雨之後 The Chaos After You 》.mp3", "如果雨之後", "周興哲 Eric"),
+        new Node("music/《你要的全拿走》胡彥斌.mp3", "你要的全拿走", "胡彥斌"),
+        new Node("music/《体面》 Kelly于文文 .mp3", "體面", "于文文 Kelly")
     ];
     var randomNodeArray;
     var randomSongList;
@@ -174,21 +175,26 @@
                     //0: 循環播放
                     case 0:
                         repeatBtn.innerText = "repeat";
-                        repeatBtn.style.color = "rgba(0, 0, 0, 1)";
+                        repeatBtn.style.color = "rgba(204, 204, 204, 1)";
+						repeatBtn.title = "全部曲目循環播放"
                         break
                     //1: 不循環播放
                     case 1:
-                        repeatBtn.style.color = "rgba(0, 0, 0, 0.3)";
+                        repeatBtn.style.color = "rgba(204, 204, 204, 0.3)";
+						repeatBtn.title = "不循環播放";
                         break
                     //2: 單曲循環播放
                     case 2:
                         repeatBtn.innerText = "repeat_one";
-                        repeatBtn.style.color = "rgba(0, 0, 0, 1)";
+                        repeatBtn.style.color = "rgba(204, 204, 204, 1)";
+						repeatBtn.title = "單曲循環播放";
                         break
                 }
                 break
             //隨機播放鈕
             case "randomBtn":
+				//若自定義播放列表為空則返回
+				if(!selectedSongs.list.headNode){return};
                 var randomBtn = document.querySelector("#randomBtn");
                 //改變隨機狀態
                 randomState = !randomState;
@@ -207,7 +213,8 @@
                     cur = randomSongList.headNode;
                     changeSong();
                     //更改按鈕樣式
-                    randomBtn.style.color = "rgba(0, 0, 0, 1)";
+                    randomBtn.style.color = "rgba(204, 204, 204, 1)";
+					randomBtn.title = "隨機播放: 開啟";
                     //看看這列表長什麼樣子
                     randomSongList.travel(function (node) {
                         c(node.name);
@@ -228,6 +235,7 @@
                     changeSong();
                     //更改按鈕樣式
                     randomBtn.style.color = "";
+					randomBtn.title = "隨機播放: 關閉";
                 }
                 break
             //刪除歌曲的按鈕
@@ -250,6 +258,7 @@
     function changeSong() {
         audio.src = cur.src;
         nowPlayingInfo.innerText = cur.name;
+		document.querySelector("#singer").innerText = cur.singer;
         isPlaying = true;
         refreshPlayingState();
         //將上一首、下一首的title做修改(設定定時器是確保修改是發生在雙擊造成的node的轉移之後)
@@ -393,7 +402,12 @@
 		var value = audio.currentTime / audio.duration;
 		var progressBar = document.querySelector("#progressBar");
 		var progressBarFg = document.querySelector("#progressBar .barFg");
+		var timeInfo = document.querySelector("#timeInfo");
+		//改變進度條長度
 		progressBarFg.style.width = progressBar.clientWidth * value + "px";
+		//改變時間
+		var min = parseInt(audio.currentTime / 60);
+		timeInfo.innertext = 123;
 	}
 	audio.addEventListener("timeupdate", timeupdate);
 
@@ -404,10 +418,6 @@
     };
 	
 
-	
-	
-	
-	
 	
 	
 	

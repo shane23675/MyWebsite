@@ -10,34 +10,54 @@
     <script src="JavaScript/player.js" defer></script>
 </head>
 <body>
+	<main>
+		<header>
+			<figure></figure>
+			<div id="songInfo">
+				<div id="nowPlayingInfo" ></div>
+				<div id="singer">我唱的</div>
+				<div id="panelTop">
+					<i id="prevBtn" class="controlBtn fas fa-fast-backward"></i>
+					<i id="playBtn" class="controlBtn fas fa-play"></i>
+					<i id="nextBtn" class="controlBtn fas fa-fast-forward"></i>
+					<i id="backwardBtn" class="controlBtn fas fa-backward"></i>
+					<i id="forwardBtn" class="controlBtn fas fa-forward"></i>
+					<div id="volBar" class="barShell">
+						<div class="barBg">
+							<div class="barFg">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="progressBar" class="barShell">
+					<div class="barBg">
+						<div class="barFg">
+						</div>
+					</div>
+				</div>
+				<div id="panelBottom">
+					<span id="timeInfo">01:23</span>
+					<i id="randomBtn" class="controlBtn fas fa-random" title="隨機播放: 關閉"></i>
+					<i id="repeatBtn" class="controlBtn material-icons" title="全部曲目循環播放">repeat</i>
+				</div>
+			</div>
+		</header>
+		<footer>
+		</footer>
+	</main>
+	
+	
+	
+	
     <audio controls autoplay></audio>
-	<i id="prevBtn" class="controlBtn fas fa-fast-backward"></i>
-	<i id="playBtn" class="controlBtn fas fa-play"></i>
-	<i id="nextBtn" class="controlBtn fas fa-fast-forward"></i>
-	<i id="backwardBtn" class="controlBtn fas fa-backward"></i>
-	<i id="forwardBtn" class="controlBtn fas fa-forward"></i>
-	<i id="repeatBtn" class="controlBtn material-icons">repeat</i>
-	<i id="randomBtn" class="controlBtn fas fa-random"></i>
-    <div id="nowPlayingInfo" ></div>
+    
 	<div id="songList">
 		<ul id="allSongs">
 		</ul>
 		<ul id="selectedSongs">
 		</ul>
 	</div>
-	<div id="volBar" class="barShell">
-		<div class="barBg">
-			<div class="barFg">
-			</div>
-		</div>
-	</div>
 	<br />
-	<div id="progressBar" class="barShell">
-		<div class="barBg">
-			<div class="barFg">
-			</div>
-		</div>
-	</div>
     <button id="testBtn">TEST</button>
 </body>
 </html>
