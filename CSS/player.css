@@ -59,6 +59,12 @@ figure {
 #progressBar {
 	height: 10px;
 }
+.barShell {
+    cursor: pointer;
+}
+.barShell:hover .barBg {
+    background: #888;
+}
 .barBg {
 	height: 5px;
 	background: #555;
@@ -71,6 +77,7 @@ figure {
 	background: lightgreen;
 	height: 100%;
 	border-radius: 5px;
+    cursor: pointer;
 }
 #panelBottom {
 	color: #ccc;
@@ -82,22 +89,11 @@ figure {
 }
 #timeInfo {
 	line-height: 30px;
-	font-size: 11px;
+	font-size: 14px;
 }
 footer {
-	height: 150px;
-	background: lightgreen;
+	min-height: 150px;
 } 
-
-
-
-
-
-
-
-
-
-
 .controlBtn {
 	width: 30px;
 	height: 30px;
@@ -107,10 +103,10 @@ footer {
     user-select: none;
 }
 .controlBtn:hover {
-	color: white;
+	color: white!important;
 }
-.controlBtn:active {
-	color: lightgreen;
+#volumnBtn {
+    float: right!important;
 }
 #randomBtn {
     color: rgba(204, 204, 204, 0.3);

@@ -6,29 +6,31 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="CSS/player.css">
-    <script src="JavaScript/jQuery.js" defer></script>
+    <!--<script src="JavaScript/jQuery.js" defer></script>-->
     <script src="JavaScript/player.js" defer></script>
 </head>
 <body>
 	<main>
+        <audio ></audio>
 		<header>
 			<figure></figure>
 			<div id="songInfo">
 				<div id="nowPlayingInfo" ></div>
-				<div id="singer">我唱的</div>
-				<div id="panelTop">
-					<i id="prevBtn" class="controlBtn fas fa-fast-backward"></i>
-					<i id="playBtn" class="controlBtn fas fa-play"></i>
-					<i id="nextBtn" class="controlBtn fas fa-fast-forward"></i>
-					<i id="backwardBtn" class="controlBtn fas fa-backward"></i>
-					<i id="forwardBtn" class="controlBtn fas fa-forward"></i>
-					<div id="volBar" class="barShell">
-						<div class="barBg">
-							<div class="barFg">
-							</div>
-						</div>
-					</div>
-				</div>
+				<div id="singer"></div>
+                <div id="panelTop">
+                    <i id="prevBtn" class="controlBtn fas fa-fast-backward"></i>
+                    <i id="playBtn" class="controlBtn fas fa-play"></i>
+                    <i id="nextBtn" class="controlBtn fas fa-fast-forward"></i>
+                    <i id="backwardBtn" class="controlBtn fas fa-backward" title="倒退10秒"></i>
+                    <i id="forwardBtn" class="controlBtn fas fa-forward" title="快進10秒"></i>
+                    <div id="volBar" class="barShell">
+                        <div class="barBg">
+                            <div class="barFg">
+                            </div>
+                        </div>
+                    </div>
+                    <i id="volumnBtn" class="controlBtn material-icons">volume_up</i>
+                </div>
 				<div id="progressBar" class="barShell">
 					<div class="barBg">
 						<div class="barFg">
@@ -42,22 +44,18 @@
 				</div>
 			</div>
 		</header>
-		<footer>
-		</footer>
+        <footer id="songList">
+            <ul id="allSongs">
+            </ul>
+            <ul id="selectedSongs">
+            </ul>
+        </footer>
 	</main>
 	
 	
 	
 	
-    <audio controls autoplay></audio>
     
-	<div id="songList">
-		<ul id="allSongs">
-		</ul>
-		<ul id="selectedSongs">
-		</ul>
-	</div>
-	<br />
     <button id="testBtn">TEST</button>
 </body>
 </html>

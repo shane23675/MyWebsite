@@ -110,9 +110,9 @@
     var nodeArray = [
 		new Node("music/買辣椒也用券《起風了》.mp3", "起風了", "買辣椒也用券"),
 		new Node("music/陳雪凝 - 綠色.mp3", "綠色", "陳雪凝"),
-		new Node("music/高爾宣 OSN -【最後一次】The Last Time.mp3", "最後一次The Last Time", "高爾宣 OSN"),
-		new Node("music/卓義峯 Yifeng Zhuo -〈再見煙火〉Goodbye Firework.mp3", "再見煙火 Goodbye Firework", "卓義峯 Yifeng Zhuo"),
-		new Node("music/李榮浩 Ronghao Li - 年少有為 If I Were Young .mp3", "年少有為 If I Were Young", "李榮浩 Ronghao Li"),
+		new Node("music/高爾宣 OSN -【最後一次】The Last Time.mp3", "最後一次", "高爾宣 OSN"),
+		new Node("music/卓義峯 Yifeng Zhuo -〈再見煙火〉Goodbye Firework.mp3", "再見煙火", "卓義峯 Yifeng Zhuo"),
+		new Node("music/李榮浩 Ronghao Li - 年少有為 If I Were Young .mp3", "年少有為", "李榮浩 Ronghao Li"),
         new Node("music/SHAUN – Way Back Home (feat. Conor Maynard).mp3", "Way Back Home", "SHAUN(feat. Conor Maynard)"),
         new Node("music/Maroon 5 - Girls Like You ft. Cardi B.mp3", "Girls Like You", "Maroon 5 ft. Cardi"),
         new Node("music/LSD - Thunderclouds (Official Video) ft. Sia, Diplo, Labrinth.mp3", "Thunderclouds", "LSD ft. Sia, Diplo, Labrinth"),
@@ -131,9 +131,10 @@
     var isPlaying = false;
     var repeatState = 0;
     var randomState = false;
+    var volumnBtn = document.querySelector("#volumnBtn");
     //初始化：將cur指向第第一首歌，然後執行changeSong()
     var cur = songList.headNode;
-    changeSong();
+    setTimeout(changeSong, 100);
     //將所有相關的點擊事件委託給body監聽
     body.addEventListener("click", function (event) {
         switch (event.target.id) {
@@ -243,6 +244,12 @@
                 var delSongName = document.querySelector("#delSongName").value;
                 songList.remove(delSongName);
                 break
+            //靜音鈕
+            case "volumnBtn":
+                //改變靜音狀態
+                audio.muted = !audio.muted;
+                //檢查靜音狀態
+                isMuted();
         }
     })
 	//更新目前撥放狀態的函數
@@ -257,6 +264,8 @@
     //切換歌曲的函數
     function changeSong() {
         audio.src = cur.src;
+        audio.load();
+        audio.play();
         nowPlayingInfo.innerText = cur.name;
 		document.querySelector("#singer").innerText = cur.singer;
         isPlaying = true;
@@ -379,35 +388,64 @@
 		});
 	}
 	//改變音量的函數
-	function changeVol(value){
-		audio.volume = value;
-	};
+    function changeVol(value) {
+        //先取消靜音狀態
+        audio.muted = false;
+        //改變音量
+        audio.volume = value;
+        //value為0視同靜音
+        if (!value) { audio.muted = true; };
+        //檢查是否為靜音
+        isMuted();
+    };
+    //檢查目前是否為靜音的函數
+    function isMuted() {
+        if (audio.muted) {
+            volumnBtn.innerText = "volume_off";
+        } else {
+            volumnBtn.innerText = "volume_up";
+        };
+    };
 	//改變進度的函數
 	function changeProgress(value){
 		audio.currentTime = audio.duration * value;
 	};
+    //格式化時間的函數
+    function getFormattedTime(time) {
+        //若為NaN，返回00:00
+        if (isNaN(time)) {return "00:00"}
+        var min = parseInt(time / 60);
+        var sec = parseInt(time % 60);
+        min = min > 9 ? "" + min : "0" + min;
+        sec = sec > 9 ? "" + sec : "0" + sec;
+        return min + ":" + sec
+    }
 	//設置音量條
 	barControl(document.querySelector("#volBar"), changeVol, changeVol);
 	//設置進度條
-	barControl(document.querySelector("#progressBar"),function(){
-		//點擊後移除audio播放時同步刷新進度條的行為
-		audio.removeEventListener("timeupdate", timeupdate);
-	},function(){},function(value){
-		changeProgress(value);
-		//放開後恢復audio播放時同步刷新進度條的行為
-		audio.addEventListener("timeupdate", timeupdate);
-	});
+    barControl(document.querySelector("#progressBar"),
+        function () {
+		    //點擊後移除audio播放時同步刷新進度條的行為
+		    audio.removeEventListener("timeupdate", timeupdate);
+        }, function (value) {
+            //拖曳進度條時改變時間資訊
+            var targetTime = value * audio.duration;
+            document.querySelector("#timeInfo").innerText = getFormattedTime(targetTime) + "/" + getFormattedTime(audio.duration);
+        }, function (value) {
+		    changeProgress(value);
+		    //放開後恢復audio播放時同步刷新進度條的行為
+		    audio.addEventListener("timeupdate", timeupdate);
+        }
+    );
 	//監聽audio的播放事件
 	function timeupdate(){
 		var value = audio.currentTime / audio.duration;
 		var progressBar = document.querySelector("#progressBar");
 		var progressBarFg = document.querySelector("#progressBar .barFg");
-		var timeInfo = document.querySelector("#timeInfo");
 		//改變進度條長度
 		progressBarFg.style.width = progressBar.clientWidth * value + "px";
 		//改變時間
-		var min = parseInt(audio.currentTime / 60);
-		timeInfo.innertext = 123;
+        document.querySelector("#timeInfo").innerText = getFormattedTime(audio.currentTime) + "/" + getFormattedTime(audio.duration);
 	}
 	audio.addEventListener("timeupdate", timeupdate);
 
