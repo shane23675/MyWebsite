@@ -466,11 +466,11 @@
 	}
 	audio.addEventListener("timeupdate", timeupdate);
 
-    var testBtn = document.querySelector("#testBtn");
-    testBtn.onclick = function () {
-        c(allSongs.list);
-		c(selectedSongs.list);
-    };
+  //  var testBtn = document.querySelector("#testBtn");
+  //  testBtn.onclick = function () {
+  //      c(allSongs.list);
+		//c(selectedSongs.list);
+  //  };
 	
 	
 	
