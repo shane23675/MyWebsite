@@ -1,10 +1,11 @@
 ﻿window.onload = function () {
     var c = console.log;
    //寫出一個Node類
-    function Node(src, name, singer) {
+    function Node(src, name, singer, img) {
         this.src = src;
         this.name = name;
 		this.singer = singer;
+		this.img = img;
         this.next = null;
         this.prev = null;
     }
@@ -108,19 +109,19 @@
 
     //測試囉
     var nodeArray = [
-		new Node("music/買辣椒也用券《起風了》.mp3", "起風了", "買辣椒也用券"),
-		new Node("music/陳雪凝 - 綠色.mp3", "綠色", "陳雪凝"),
-		new Node("music/高爾宣 OSN -【最後一次】The Last Time.mp3", "最後一次", "高爾宣 OSN"),
-		new Node("music/卓義峯 Yifeng Zhuo -〈再見煙火〉Goodbye Firework.mp3", "再見煙火", "卓義峯 Yifeng Zhuo"),
-		new Node("music/李榮浩 Ronghao Li - 年少有為 If I Were Young .mp3", "年少有為", "李榮浩 Ronghao Li"),
-        new Node("music/SHAUN – Way Back Home (feat. Conor Maynard).mp3", "Way Back Home", "SHAUN(feat. Conor Maynard)"),
-        new Node("music/Maroon 5 - Girls Like You ft. Cardi B.mp3", "Girls Like You", "Maroon 5 ft. Cardi"),
-        new Node("music/LSD - Thunderclouds (Official Video) ft. Sia, Diplo, Labrinth.mp3", "Thunderclouds", "LSD ft. Sia, Diplo, Labrinth"),
-        new Node("music/LSD - Genius ft. Sia, Diplo, Labrinth.mp3", "Genius", "LSD ft. Sia, Diplo, Labrinth"),
-        new Node("music/Imagine Dragons - Thunder.mp3", "Thunder", "Imagine Dragons"),
-        new Node("music/Eric周興哲《 如果雨之後 The Chaos After You 》.mp3", "如果雨之後", "周興哲 Eric"),
-        new Node("music/《你要的全拿走》胡彥斌.mp3", "你要的全拿走", "胡彥斌"),
-        new Node("music/《体面》 Kelly于文文 .mp3", "體面", "于文文 Kelly")
+		new Node("music/買辣椒也用券《起風了》.mp3", "起風了", "買辣椒也用券", "images/cover/起風了.png"),
+		new Node("music/陳雪凝 - 綠色.mp3", "綠色", "陳雪凝", "images/cover/綠色.png"),
+		new Node("music/高爾宣 OSN -【最後一次】The Last Time.mp3", "最後一次", "高爾宣 OSN", "images/cover/最後一次.png"),
+		new Node("music/卓義峯 Yifeng Zhuo -〈再見煙火〉Goodbye Firework.mp3", "再見煙火", "卓義峯 Yifeng Zhuo", "images/cover/再見煙火.png"),
+		new Node("music/李榮浩 Ronghao Li - 年少有為 If I Were Young .mp3", "年少有為", "李榮浩 Ronghao Li", "images/cover/年少有為.png"),
+        new Node("music/SHAUN – Way Back Home (feat. Conor Maynard).mp3", "Way Back Home", "SHAUN(feat. Conor Maynard)", "images/cover/WayBackHome.png"),
+        new Node("music/Maroon 5 - Girls Like You ft. Cardi B.mp3", "Girls Like You", "Maroon 5 ft. Cardi", "images/cover/GirlsLikeYou.png"),
+        new Node("music/LSD - Thunderclouds (Official Video) ft. Sia, Diplo, Labrinth.mp3", "Thunderclouds", "LSD ft. Sia, Diplo, Labrinth", "images/cover/Thunderclouds.png"),
+        new Node("music/LSD - Genius ft. Sia, Diplo, Labrinth.mp3", "Genius", "LSD ft. Sia, Diplo, Labrinth", "images/cover/genius.png"),
+        new Node("music/Imagine Dragons - Thunder.mp3", "Thunder", "Imagine Dragons", "images/cover/Thunder.png"),
+        new Node("music/Eric周興哲《 如果雨之後 The Chaos After You 》.mp3", "如果雨之後", "周興哲 Eric", "images/cover/如果雨之後.png"),
+        new Node("music/《你要的全拿走》胡彥斌.mp3", "你要的全拿走", "胡彥斌", "images/cover/你要的全拿走.png"),
+        new Node("music/《体面》 Kelly于文文 .mp3", "體面", "于文文 Kelly", "images/cover/體面.png")
     ];
     var randomNodeArray;
     var randomSongList;
@@ -134,7 +135,7 @@
     var volumnBtn = document.querySelector("#volumnBtn");
     //初始化：將cur指向第第一首歌，然後執行changeSong()
     var cur = songList.headNode;
-    setTimeout(changeSong, 100);
+    setTimeout(changeSong, 300);
     //將所有相關的點擊事件委託給body監聽
     body.addEventListener("click", function (event) {
         switch (event.target.id) {
@@ -195,7 +196,10 @@
             //隨機播放鈕
             case "randomBtn":
 				//若自定義播放列表為空則返回
-				if(!selectedSongs.list.headNode){return};
+				if(!selectedSongs.list.headNode){
+					alert("僅限於我的歌單內隨機播放\n請先將歌曲加入我的歌單")
+					return
+				};
                 var randomBtn = document.querySelector("#randomBtn");
                 //改變隨機狀態
                 randomState = !randomState;
@@ -267,6 +271,8 @@
         audio.load();
         audio.play();
         nowPlayingInfo.innerText = cur.name;
+		document.querySelector("figure").style.backgroundImage = "url("+ cur.img +")";
+		document.querySelector("#blurBg").style.backgroundImage = "url("+ cur.img +")";
 		document.querySelector("#singer").innerText = cur.singer;
         isPlaying = true;
         refreshPlayingState();
@@ -275,6 +281,17 @@
             document.querySelector("#nextBtn").title = "下一首:  " + cur.next.name;
             document.querySelector("#prevBtn").title = "上一首:  " + cur.prev.name;
         }, 20);
+		//改變<li>的選中狀態
+		var liArray = document.querySelectorAll("#songList li");
+		liArray.forEach(function(item){
+			if (item.node == cur){
+				item.style.background = "lightgreen";
+				item.style.color = "black";
+			}else{
+				item.style.background = "";
+				item.style.color = "";
+			}
+		});
     }
 	//結束時自動切換下一首
     audio.addEventListener("ended", function () {
@@ -455,7 +472,6 @@
 		c(selectedSongs.list);
     };
 	
-
 	
 	
 	
