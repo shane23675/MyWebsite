@@ -12,15 +12,6 @@
     for (var i = 0; i < 9; i++) {
         box9x9.push([]);
     }
-    //給box9x9添加一個遍歷所有內部項目的方法                    
-    box9x9.checkAll = function (callBack) {
-        //將各個box依序傳入回調函數中
-        for (var i = 0; i < 9; i++) {
-            for (var j = 0; j < 9; j++) {
-                callBack(this[i][j]);
-            }
-        }
-    }
     //主程序
     var editFlag;
     function sudocu() {
@@ -43,12 +34,22 @@
         editFlag = true;
         while (editFlag) {
             editFlag = false;
-            box9x9.checkAll(refreshPArray);
+            checkAll(refreshPArray);
             fillByBlock();
-            box9x9.checkAll(refreshPArray);
-            box9x9.checkAll(fillByPArray);
+            checkAll(refreshPArray);
+            checkAll(fillByPArray);
+            if (pArrayEmptyFlag) {
+                c("異常");
+                break
+            }
         }
         showBox9x9();
+        //整個字串show出來
+        var result = "";
+        checkAll(function (box) {
+            result += box.value;
+        })
+        c(result);
     }
     //查看Box9x9的函數
     function showBox9x9() {
@@ -58,6 +59,15 @@
                 str += box9x9[i][j].value + ", ";
             }
             c(str);
+        }
+    }
+    //遍歷所有box9x9內部項目的方法
+    function checkAll(callBack) {
+        //將各個box依序傳入回調函數中
+        for (var i = 0; i < 9; i++) {
+            for (var j = 0; j < 9; j++) {
+                callBack(box9x9[i][j]);
+            }
         }
     }
     //Box類：用來表示每個小格子
@@ -87,6 +97,7 @@
         }
     }
     //刷新某格可能性的函數
+    var pArrayEmptyFlag = false;
     function refreshPArray(box) {
         //若該box有值則不必檢查
         if (box.value != 0) return
@@ -115,8 +126,11 @@
                 box.pArray.splice(index, 1);
             }
         });
+        //檢查完後，若pArray為空則改變pArrayEmptyFlag(表示異常)
+        if (box.pArray.length == 0)
+            pArrayEmptyFlag = true;
     }
-    //將可能性只有一個的box填入的函數(回傳值表示有沒有對整個box9x9造成改變)
+    //將可能性只有一個的box填入的函數
     function fillByPArray(box) {
         //若box已有值則跳過
         if (box.value != 0) { return }
